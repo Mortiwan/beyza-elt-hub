@@ -1,0 +1,1915 @@
+/* ==========================================================================
+   TEACHER BEYZA'S CREATIVE STUDIO - KARELİ DEFTER, RULO YAPRAK,
+   GÜMÜŞ KALP KOLYE VE ANİMASYONLU KALEM TASARIMI (style.css)
+   Ana Tema: Turuncu & Beyaz Kareli Not Defteri | Yardımcı: Sarı, Siyah, Gümüş
+   ========================================================================== */
+
+:root {
+    /* Beyza'nın Renk Paleti */
+    --primary-orange: #FF6B00;
+    --primary-orange-dark: #E05500;
+    --primary-orange-light: #FF9E44;
+    --orange-grid-line: rgba(255, 107, 0, 0.24);
+    --orange-grid-strong: rgba(255, 107, 0, 0.45);
+    --accent-yellow: #FFD233;
+    --pure-white: #FFFFFF;
+    --paper-white: #FFFEFA;
+    --ink-black: #181818;
+    --charcoal-gray: #424242;
+
+    /* Gümüş Kalp Kolye Renkleri */
+    --silver-bright: #F8FAFC;
+    --silver-mid: #CBD5E1;
+    --silver-deep: #64748B;
+
+    /* Durum Renkleri */
+    --success-green: #2ECC71;
+    --danger-red: #E74C3C;
+
+    /* Fontlar */
+    --font-heading: 'Fredoka', sans-serif;
+    --font-handwriting: 'Patrick Hand', cursive;
+    --font-body: 'Nunito', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* ==========================================================================
+   ANA SAYFA ARKA PLANI: TURUNCU VE BEYAZ ODAKLI KARELİ NOT DEFTERİ YAPRAĞI
+   ========================================================================== */
+body {
+    font-family: var(--font-body);
+    color: var(--ink-black);
+    background-color: var(--paper-white);
+    /* Turuncu ve Beyaz Odaklı Kareli Not Defteri Dokusu (24x24px Kareler + Sol Kırmızı/Turuncu Kenar Çizgisi) */
+    background-image:
+        linear-gradient(90deg, transparent 58px, rgba(255, 107, 0, 0.65) 58px, rgba(255, 107, 0, 0.65) 61px, transparent 61px),
+        linear-gradient(to right, var(--orange-grid-line) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, var(--orange-grid-line) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 26px 26px, 26px 26px;
+    background-attachment: fixed;
+    min-height: 100vh;
+    overflow-x: hidden;
+    padding-bottom: 80px;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* ==========================================================================
+   1. ÜST KONTROL VE PROFİL ŞERİDİ (TURUNCU - BEYAZ - SİYAH OKUL KONSEPTİ)
+   ========================================================================== */
+.studio-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 30px;
+    background: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.14) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.14) 1px, transparent 1px);
+    background-size: 18px 18px;
+    border-bottom: 4px solid var(--primary-orange);
+    box-shadow: 0 4px 0 var(--ink-black);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.brand-badge {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.crayon-icon {
+    font-size: 1.8rem;
+    transform: rotate(-14deg);
+    display: inline-block;
+}
+
+.brand-title {
+    font-family: var(--font-heading);
+    font-size: 1.55rem;
+    font-weight: 700;
+    color: var(--primary-orange);
+    text-shadow: 2px 2px 0 var(--ink-black);
+}
+
+.role-badge {
+    background: var(--accent-yellow);
+    color: var(--ink-black);
+    font-weight: 800;
+    font-size: 0.82rem;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 2.5px solid var(--ink-black);
+    box-shadow: 2px 2px 0 var(--ink-black);
+}
+
+.role-badge.teacher-mode {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+}
+
+.top-right-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+}
+
+/* Sağ Üst Çizim Hoparlör İkonu */
+.sketch-icon-btn {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    background: var(--pure-white);
+    color: var(--ink-black);
+    border: 2.5px solid var(--ink-black);
+    border-radius: 12px;
+    padding: 6px 13px;
+    font-family: var(--font-handwriting);
+    font-size: 1.1rem;
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--primary-orange);
+    transition: transform 0.15s ease, background 0.2s ease;
+}
+
+.sketch-icon-btn:hover {
+    background: var(--accent-yellow);
+    transform: translate(-1px, -1px);
+}
+
+.hand-drawn-svg {
+    width: 22px;
+    height: 22px;
+    fill: none;
+    stroke: var(--ink-black);
+    stroke-width: 4;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+/* Boya Kalemi Butonları */
+.sketch-btn {
+    font-family: var(--font-heading);
+    font-size: 0.95rem;
+    font-weight: 600;
+    padding: 9px 16px;
+    border-radius: 14px;
+    border: 2.5px solid var(--ink-black);
+    background: var(--pure-white);
+    color: var(--ink-black);
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink-black);
+    transition: all 0.15s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 6px;
+}
+
+.sketch-btn:hover {
+    transform: translate(-2px, -2px);
+    box-shadow: 5px 5px 0 var(--ink-black);
+}
+
+.primary-orange-btn {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+}
+
+.primary-orange-btn:hover {
+    background: var(--primary-orange-dark);
+}
+
+.secondary-yellow-btn {
+    background: var(--accent-yellow);
+    color: var(--ink-black);
+}
+
+.teacher-key-btn {
+    background: var(--accent-yellow);
+    font-weight: 700;
+}
+
+.full-width-btn {
+    width: 100%;
+}
+
+/* Sağ Üst Mini Profil */
+.mini-profile-container {
+    position: relative;
+}
+
+.mini-profile-trigger {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    background: var(--pure-white);
+    border: 2.5px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 4px 12px 4px 6px;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--primary-orange);
+}
+
+.profile-avatar-box {
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    background: var(--primary-orange);
+    color: var(--pure-white);
+    border: 2px solid var(--ink-black);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.2rem;
+}
+
+.profile-meta {
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+    line-height: 1.1;
+}
+
+.profile-name {
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--ink-black);
+}
+
+.profile-score {
+    font-size: 0.75rem;
+    color: var(--primary-orange);
+    font-weight: 700;
+}
+
+.profile-dropdown-menu {
+    position: absolute;
+    right: 0;
+    top: calc(100% + 8px);
+    background: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 14px;
+    box-shadow: 5px 5px 0 var(--primary-orange);
+    padding: 12px;
+    min-width: 175px;
+    z-index: 1100;
+}
+
+.dropdown-info-row {
+    padding-bottom: 8px;
+    margin-bottom: 8px;
+    border-bottom: 2px dashed var(--primary-orange);
+    font-weight: 700;
+}
+
+.logout-action-btn {
+    width: 100%;
+    background: var(--danger-red);
+    color: var(--pure-white);
+    border: 2px solid var(--ink-black);
+    border-radius: 8px;
+    padding: 7px 10px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+/* ==========================================================================
+   2. YAN YANA 3'LÜ RULO DEFTER YAPRAĞI MENÜSÜ
+   (Tahtasız, Turuncu-Beyaz Kareli Not Defteri Yaprağının Rulo Yapılmış Hali)
+   ========================================================================== */
+.paper-rolls-nav {
+    max-width: 1180px;
+    margin: 24px auto 16px;
+    padding: 0 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 26px;
+    position: relative;
+    z-index: 900;
+}
+
+.paper-roll-wrapper {
+    position: relative;
+    background: transparent;
+    padding: 0;
+}
+
+/* Defterden Koparılıp Rulo Haline Getirilmiş Turuncu-Beyaz Kareli Kağıt Silindiri */
+.paper-roll-cylinder {
+    width: 100%;
+    min-height: 68px;
+    background-color: var(--pure-white);
+    /* Turuncu-Beyaz Kareli Defter Dokusu + Silindirik Rulo Kıvrım Gölgesi */
+    background-image:
+        linear-gradient(
+            180deg,
+            rgba(255, 107, 0, 0.25) 0%,
+            rgba(255, 255, 255, 0.92) 22%,
+            rgba(255, 255, 255, 0.4) 55%,
+            rgba(255, 107, 0, 0.18) 82%,
+            rgba(24, 24, 24, 0.22) 100%
+        ),
+        linear-gradient(to right, rgba(255, 107, 0, 0.32) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.32) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 16px 16px, 16px 16px;
+    border: 3px solid var(--ink-black);
+    border-radius: 38px;
+    padding: 12px 18px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    box-shadow:
+        0 8px 0 var(--primary-orange),
+        0 8px 0 3px var(--ink-black),
+        inset 0 4px 8px rgba(255, 255, 255, 0.9);
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+    position: relative;
+    z-index: 3;
+}
+
+/* Rulo Kağıdın Üstündeki Koparılmış Defter Tırtığı Süsü */
+.paper-roll-cylinder::before {
+    content: "";
+    position: absolute;
+    top: -7px;
+    left: 26px;
+    right: 26px;
+    height: 7px;
+    background:
+        linear-gradient(135deg, var(--primary-orange) 33.33%, transparent 33.33%),
+        linear-gradient(225deg, var(--primary-orange) 33.33%, transparent 33.33%);
+    background-size: 12px 14px;
+}
+
+.paper-roll-cylinder:hover {
+    transform: translateY(-2px);
+    box-shadow:
+        0 10px 0 var(--accent-yellow),
+        0 10px 0 3px var(--ink-black);
+}
+
+/* Rulo Kağıdın İki Ucundaki Kıvrımlı Spiral Kağıt Halkaları */
+.roll-pin-left,
+.roll-pin-right {
+    width: 24px;
+    height: 40px;
+    border-radius: 50%;
+    background:
+        repeating-radial-gradient(
+            circle at center,
+            var(--pure-white) 0px,
+            var(--pure-white) 3px,
+            var(--primary-orange) 3px,
+            var(--primary-orange) 5px
+        );
+    border: 2.5px solid var(--ink-black);
+    box-shadow: inset 0 0 4px rgba(0, 0, 0, 0.25);
+    flex-shrink: 0;
+}
+
+.roll-title {
+    font-family: var(--font-heading);
+    font-size: 1.12rem;
+    font-weight: 700;
+    color: var(--ink-black);
+    background: var(--pure-white);
+    padding: 5px 14px;
+    border-radius: 999px;
+    border: 2px solid var(--primary-orange);
+    box-shadow: 2px 2px 0 var(--accent-yellow);
+}
+
+/* Aşağı Doğru Açılan Kareli Not Defteri Rulo Yaprağı */
+.paper-roll-sheet {
+    position: absolute;
+    top: calc(100% - 10px);
+    left: 4%;
+    width: 92%;
+    background-color: var(--pure-white);
+    /* Turuncu-Beyaz Kareli Not Defteri Çizgileri */
+    background-image:
+        linear-gradient(90deg, transparent 28px, rgba(255, 107, 0, 0.55) 28px, rgba(255, 107, 0, 0.55) 30px, transparent 30px),
+        linear-gradient(to right, rgba(255, 107, 0, 0.22) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.22) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 20px 20px, 20px 20px;
+    border-left: 3px solid var(--ink-black);
+    border-right: 3px solid var(--ink-black);
+    box-shadow: 6px 10px 0 var(--primary-orange), 6px 10px 0 3px var(--ink-black);
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transform-origin: top center;
+    transition: max-height 0.45s cubic-bezier(0.22, 1, 0.36, 1), opacity 0.25s ease;
+    z-index: 2;
+    pointer-events: none;
+}
+
+.paper-roll-wrapper:hover .paper-roll-sheet,
+.paper-roll-wrapper.roll-open .paper-roll-sheet {
+    max-height: 460px;
+    opacity: 1;
+    pointer-events: auto;
+    padding-top: 18px;
+}
+
+.roll-sheet-heading {
+    font-family: var(--font-heading);
+    font-size: 0.85rem;
+    font-weight: 800;
+    letter-spacing: 1.5px;
+    color: var(--primary-orange);
+    text-align: center;
+    margin-bottom: 4px;
+}
+
+.roll-menu-list {
+    list-style: none;
+    padding: 8px 14px 14px 36px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.roll-menu-item {
+    position: relative;
+    width: 100%;
+    background: rgba(255, 255, 255, 0.8);
+    border: 1.5px dashed rgba(255, 107, 0, 0.4);
+    border-radius: 12px;
+    padding: 10px 14px;
+    font-family: var(--font-handwriting);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--ink-black);
+    text-align: left;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    z-index: 1;
+    transition: transform 0.15s ease, color 0.15s ease, background 0.15s ease;
+}
+
+.roll-menu-item:hover,
+.roll-menu-item.active-nav {
+    color: var(--primary-orange-dark);
+    background: #FFF8E7;
+    transform: translateX(4px);
+}
+
+/* Yamuk Boya Kalemi Çemberi SVG */
+.crayon-circle {
+    position: absolute;
+    inset: -2px;
+    width: calc(100% + 4px);
+    height: calc(100% + 4px);
+    pointer-events: none;
+    overflow: visible;
+}
+
+.crayon-circle path {
+    fill: none;
+    stroke: var(--primary-orange);
+    stroke-width: 4.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    stroke-dasharray: 600;
+    stroke-dashoffset: 600;
+    transition: stroke-dashoffset 0.45s ease-out;
+    filter: drop-shadow(1px 2px 0 var(--accent-yellow));
+}
+
+.roll-menu-item:hover .crayon-circle path,
+.roll-menu-item:focus-visible .crayon-circle path,
+.roll-menu-item.active-nav .crayon-circle path {
+    stroke-dashoffset: 0;
+}
+
+/* Rulo Yaprağın Altındaki Koparılmış Defter Kenarı */
+.torn-paper-bottom {
+    height: 16px;
+    width: 100%;
+    background:
+        linear-gradient(135deg, var(--primary-orange) 33.33%, transparent 33.33%),
+        linear-gradient(225deg, var(--primary-orange) 33.33%, transparent 33.33%);
+    background-size: 16px 28px;
+    border-bottom: 3px solid var(--ink-black);
+}
+
+/* ==========================================================================
+   3. ANA SAHNE: TURUNCU-BEYAZ KARELİ BÜYÜK DEFTER YAPRAĞI
+   ========================================================================== */
+.notebook-stage {
+    max-width: 1200px;
+    margin: 18px auto;
+    padding: 28px 28px 40px 44px;
+    background-color: var(--pure-white);
+    /* Ana Sahne Kareli Not Defteri Yaprağı Dokusu */
+    background-image:
+        linear-gradient(90deg, transparent 28px, var(--primary-orange) 28px, var(--primary-orange) 31px, transparent 31px),
+        linear-gradient(to right, rgba(255, 107, 0, 0.2) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.2) 1.5px, transparent 1.5px);
+    background-size: 100% 100%, 24px 24px, 24px 24px;
+    border: 3.5px solid var(--ink-black);
+    border-top: 12px solid var(--primary-orange);
+    border-radius: 18px;
+    box-shadow:
+        8px 8px 0 var(--primary-orange),
+        8px 8px 0 3.5px var(--ink-black),
+        0 20px 40px rgba(0, 0, 0, 0.1);
+    position: relative;
+}
+
+/* Ana Defter Yaprağının Sol Kenarındaki Defter Delikleri */
+.notebook-stage::before {
+    content: "";
+    position: absolute;
+    top: 36px;
+    bottom: 36px;
+    left: 8px;
+    width: 16px;
+    background-image: radial-gradient(circle, #FFF0E0 6px, var(--ink-black) 6.5px, var(--ink-black) 8px, transparent 8.5px);
+    background-size: 16px 48px;
+    pointer-events: none;
+}
+
+.studio-view {
+    animation: pageFlipIn 0.35s ease-out;
+}
+
+@keyframes pageFlipIn {
+    0% { opacity: 0; transform: translateY(8px); }
+    100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Öğretmen Kontrol Şeridi */
+.teacher-admin-banner {
+    background: linear-gradient(90deg, var(--primary-orange), #FF8C3B);
+    color: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 16px;
+    padding: 16px 22px;
+    margin-bottom: 24px;
+    box-shadow: 4px 4px 0 var(--ink-black);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 16px;
+}
+
+.admin-banner-left {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+}
+
+.admin-crown {
+    font-size: 1.9rem;
+    background: var(--pure-white);
+    border: 2px solid var(--ink-black);
+    border-radius: 50%;
+    width: 46px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.permission-switch-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--pure-white);
+    color: var(--ink-black);
+    padding: 8px 14px;
+    border-radius: 999px;
+    border: 2px solid var(--ink-black);
+    cursor: pointer;
+    font-weight: 700;
+}
+
+.permission-switch-label input {
+    display: none;
+}
+
+.crayon-toggle-slider {
+    width: 46px;
+    height: 24px;
+    background: #CBD5E1;
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    position: relative;
+    transition: background 0.25s ease;
+}
+
+.crayon-toggle-slider::after {
+    content: "";
+    width: 16px;
+    height: 16px;
+    background: var(--ink-black);
+    border-radius: 50%;
+    position: absolute;
+    top: 2px;
+    left: 3px;
+    transition: transform 0.25s ease;
+}
+
+.permission-switch-label input:checked + .crayon-toggle-slider {
+    background: var(--success-green);
+}
+
+.permission-switch-label input:checked + .crayon-toggle-slider::after {
+    transform: translateX(20px);
+    background: var(--pure-white);
+}
+
+.permission-status-badge {
+    background: var(--accent-yellow);
+    padding: 3px 10px;
+    border-radius: 999px;
+    border: 1.5px solid var(--ink-black);
+    font-size: 0.85rem;
+}
+
+/* Ana Sayfa Karşılama Başlığı (Turuncu-Beyaz Kareli Defter Başlığı) */
+.welcome-notebook-header {
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    border: 3px solid var(--ink-black);
+    border-left: 10px solid var(--primary-orange);
+    border-radius: 16px;
+    padding: 28px 26px;
+    text-align: center;
+    position: relative;
+    box-shadow: 5px 5px 0 var(--accent-yellow), 5px 5px 0 3px var(--ink-black);
+    margin-bottom: 26px;
+}
+
+.notebook-holes {
+    display: none;
+}
+
+.welcome-kicker {
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.92rem;
+    letter-spacing: 1.6px;
+    color: var(--primary-orange);
+    margin-bottom: 6px;
+}
+
+.welcome-main-title {
+    font-family: var(--font-heading);
+    font-size: clamp(1.9rem, 3.8vw, 2.9rem);
+    color: var(--ink-black);
+    text-shadow: 3px 3px 0 var(--accent-yellow);
+    margin-bottom: 10px;
+}
+
+.welcome-subtitle {
+    font-family: var(--font-handwriting);
+    font-size: 1.35rem;
+    color: var(--charcoal-gray);
+    max-width: 720px;
+    margin: 0 auto;
+}
+
+/* ==========================================================================
+   4. SOLDAN AŞAĞI ÇİZİM ŞEKLİNDE ANİMASYONLU GÜMÜŞ KALP KOLYE
+   (Üstüne gelince açılır: "Sevgili Öğrencilerime Özel Link;" + Beyaz Kutu + Sağda Kopyala)
+   ========================================================================== */
+.locket-showcase-area {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 34px;
+    padding-left: 18px;
+    position: relative;
+}
+
+/* Soldan Aşağı İnen Çizim Gümüş Kolye Zinciri */
+.silver-locket-chain {
+    width: 76px;
+    height: 46px;
+    margin-left: 88px;
+    margin-bottom: -12px;
+    border-left: 4px dashed var(--ink-black);
+    border-right: 4px dashed var(--ink-black);
+    position: relative;
+    z-index: 1;
+    animation: chainSway 3.6s ease-in-out infinite;
+    transform-origin: top center;
+}
+
+.silver-locket-chain::before {
+    content: "🔗";
+    position: absolute;
+    top: -14px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 1.3rem;
+}
+
+@keyframes chainSway {
+    0%, 100% { transform: rotate(-1.5deg); }
+    50% { transform: rotate(1.5deg); }
+}
+
+/* Çizim Gümüş Kalp Kolye Gövdesi */
+.silver-locket-card {
+    width: 260px;
+    min-height: 235px;
+    /* El Çizimi Gümüş Kalp SVG Arka Planı */
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 260 240'%3E%3Cdefs%3E%3ClinearGradient id='silverGrad' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23FFFFFF'/%3E%3Cstop offset='40%25' stop-color='%23E2E8F0'/%3E%3Cstop offset='75%25' stop-color='%23CBD5E1'/%3E%3Cstop offset='100%25' stop-color='%2394A3B8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M130 222 C130 222 18 152 18 76 C18 34 52 14 86 14 C110 14 124 28 130 42 C136 28 150 14 174 14 C208 14 242 34 242 76 C242 152 130 222 130 222 Z' fill='url(%23silverGrad)' stroke='%23181818' stroke-width='6' stroke-linejoin='round'/%3E%3Cpath d='M44 66 C44 46 62 34 82 34' fill='none' stroke='%23FFFFFF' stroke-width='5' stroke-linecap='round'/%3E%3Cpath d='M130 42 L130 216' stroke='%23181818' stroke-width='2.5' stroke-dasharray='6,5'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: 100% 100%;
+    border: none;
+    padding: 46px 28px 34px;
+    cursor: pointer;
+    position: relative;
+    z-index: 2;
+    filter: drop-shadow(5px 8px 0 var(--primary-orange));
+    transition: all 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+    animation: heartFloat 3.6s ease-in-out infinite;
+    transform-origin: top center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+@keyframes heartFloat {
+    0%, 100% { transform: rotate(-1.5deg) translateY(0); }
+    50% { transform: rotate(1.5deg) translateY(4px); }
+}
+
+/* Üzerine Gelindiğinde veya Tıklandığında Gümüş Kalp Kolye Genişleyerek Açılır */
+.silver-locket-card:hover,
+.silver-locket-card:focus-within,
+.silver-locket-card.locket-open {
+    width: min(100%, 690px);
+    min-height: 250px;
+    animation: none;
+    transform: rotate(0deg) scale(1.01);
+    background-image: none;
+    background: linear-gradient(135deg, #FFFFFF 0%, #E2E8F0 45%, #CBD5E1 85%, #94A3B8 100%);
+    border: 4px solid var(--ink-black);
+    border-radius: 40px 40px 55px 55px;
+    box-shadow:
+        0 12px 0 var(--primary-orange),
+        0 12px 0 4px var(--ink-black),
+        inset 0 3px 8px #FFFFFF;
+    padding: 24px 30px;
+}
+
+/* Açık Kalp Kolyenin Sol ve Sağ Gümüş Kanat Süsleri */
+.silver-locket-card:hover::before,
+.silver-locket-card.locket-open::before {
+    content: "🤍 GÜMÜŞ KALP KOLYE AÇILDI 🤍";
+    display: block;
+    text-align: center;
+    font-family: var(--font-heading);
+    font-size: 0.78rem;
+    letter-spacing: 1.5px;
+    color: var(--ink-black);
+    background: var(--accent-yellow);
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 3px 14px;
+    margin: -10px auto 10px;
+    width: fit-content;
+}
+
+.locket-cover {
+    text-align: center;
+    transition: all 0.3s ease;
+}
+
+.locket-gem {
+    font-size: 2.1rem;
+    display: inline-block;
+    margin-bottom: 2px;
+}
+
+.locket-engraving h3 {
+    font-family: var(--font-heading);
+    font-size: 1.15rem;
+    color: var(--ink-black);
+}
+
+.locket-engraving p {
+    font-family: var(--font-handwriting);
+    font-size: 1rem;
+    color: var(--primary-orange-dark);
+    font-weight: 700;
+}
+
+/* Kolyenin Açılan İç Kısmı */
+.locket-interior {
+    max-height: 0;
+    opacity: 0;
+    overflow: hidden;
+    transition: max-height 0.45s ease, opacity 0.35s ease;
+    text-align: center;
+}
+
+.silver-locket-card:hover .locket-cover,
+.silver-locket-card:focus-within .locket-cover,
+.silver-locket-card.locket-open .locket-cover {
+    display: none;
+}
+
+.silver-locket-card:hover .locket-interior,
+.silver-locket-card:focus-within .locket-interior,
+.silver-locket-card.locket-open .locket-interior {
+    max-height: 320px;
+    opacity: 1;
+}
+
+/* Başlık: "Sevgili Öğrencilerime Özel Link;" (Noktalı virgül ile) */
+.locket-interior-title {
+    font-size: 0;
+    margin-bottom: 8px;
+}
+
+.locket-interior-title::after {
+    content: "Sevgili Öğrencilerime Özel Link;";
+    font-family: var(--font-heading);
+    font-size: 1.45rem;
+    color: var(--primary-orange-dark);
+    text-shadow: 1px 1px 0 var(--pure-white);
+    display: block;
+}
+
+.locket-interior-desc {
+    font-size: 0.92rem;
+    color: var(--ink-black);
+    margin-bottom: 12px;
+    font-weight: 700;
+}
+
+/* Ortada Beyaz Kutucuk İçinde Link + Hemen Sağında Kopyala Tuşu */
+.locket-link-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    max-width: 580px;
+    margin: 0 auto 12px;
+}
+
+.locket-white-box {
+    flex: 1;
+    background: var(--pure-white);
+    color: var(--ink-black);
+    border: 3px solid var(--ink-black);
+    border-radius: 12px;
+    padding: 11px 14px;
+    font-family: var(--font-body);
+    font-size: 0.95rem;
+    font-weight: 800;
+    box-shadow: inset 2px 2px 5px rgba(0, 0, 0, 0.08);
+    user-select: all;
+}
+
+.locket-copy-btn {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 12px;
+    padding: 11px 20px;
+    font-family: var(--font-heading);
+    font-weight: 700;
+    font-size: 0.95rem;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink-black);
+    white-space: nowrap;
+    transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.locket-copy-btn:hover {
+    background: var(--primary-orange-dark);
+    transform: translate(-2px, -2px);
+}
+
+.locket-class-selector-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    font-size: 0.88rem;
+    font-weight: 800;
+}
+
+.sketch-select-small {
+    padding: 5px 10px;
+    border-radius: 8px;
+    border: 2px solid var(--ink-black);
+    background: var(--pure-white);
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.copy-feedback-msg {
+    display: block;
+    margin-top: 6px;
+    font-weight: 800;
+    font-size: 0.9rem;
+    color: var(--success-green);
+    min-height: 20px;
+}
+
+/* ==========================================================================
+   5. ANA SAYFA 3'LÜ ARAÇLAR:
+      1) SOLDAKİ BEĞENDİĞİN SARI POST-İT (BİREBİR KORUNDU)
+      2) ORTADA/SAĞDA SÜREYE GÖRE DOLUP BİTEN ANİMASYONLU KALEM (TIMER)
+      3) SAĞDA AKILLI KALEM (LUCKY PENCIL - ÖĞRENCİ & SORU SEÇİCİ)
+   ========================================================================== */
+.home-widgets-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1.15fr;
+    gap: 28px;
+    align-items: stretch;
+    margin-top: 10px;
+}
+
+.widget-top-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 12px;
+}
+
+.widget-top-row h3 {
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+}
+
+.widget-helper-text {
+    font-size: 0.9rem;
+    color: var(--charcoal-gray);
+    margin-bottom: 14px;
+    font-weight: 700;
+}
+
+/* --------------------------------------------------------------------------
+   ARAÇ 1: SOLDAKİ SARI POST-İT KAĞIDI (BEĞENDİĞİN TASARIM BİREBİR KORUNDU)
+   -------------------------------------------------------------------------- */
+.post-it-widget {
+    background: linear-gradient(
+        155deg,
+        #FFF86B 0%,
+        #FFEE55 38%,
+        #FFF576 62%,
+        #FDE047 100%
+    );
+    border: none;
+    border-radius: 2px;
+    padding: 28px 22px 24px;
+    position: relative;
+    box-shadow: 
+        0 1px 2px rgba(0, 0, 0, 0.12),
+        0 4px 0 -1px #FACC15,
+        0 7px 0 -2px #EAB308,
+        -6px 16px 24px rgba(0, 0, 0, 0.18);
+    transform: rotate(-1deg);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    overflow: hidden;
+}
+
+.post-it-widget::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 28px;
+    background: linear-gradient(180deg, rgba(234, 179, 8, 0.22) 0%, transparent 100%);
+    pointer-events: none;
+}
+
+.post-it-widget::after {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 54px;
+    height: 54px;
+    background: linear-gradient(
+        315deg,
+        rgba(0, 0, 0, 0.14) 0%,
+        rgba(255, 255, 255, 0.75) 46%,
+        rgba(254, 240, 138, 0.95) 54%,
+        transparent 70%
+    );
+    box-shadow: -4px -4px 10px rgba(0, 0, 0, 0.08);
+    pointer-events: none;
+}
+
+.post-it-widget:hover {
+    transform: rotate(0deg) translateY(-4px);
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.12),
+        0 4px 0 -1px #FACC15,
+        0 7px 0 -2px #EAB308,
+        -8px 22px 30px rgba(0, 0, 0, 0.22);
+}
+
+.masking-tape {
+    display: none;
+}
+
+.badge-tag {
+    display: inline-block;
+    background: var(--primary-orange);
+    color: var(--pure-white);
+    font-size: 0.72rem;
+    font-weight: 800;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 6px;
+    box-shadow: 0 2px 5px rgba(255, 107, 0, 0.3);
+}
+
+.idiom-tag {
+    background: var(--ink-black);
+    color: var(--accent-yellow);
+}
+
+.daily-word-box h4,
+.daily-idiom-box h4 {
+    font-family: var(--font-heading);
+    font-size: 1.35rem;
+    color: var(--ink-black);
+    margin-bottom: 4px;
+}
+
+.turkish-meaning {
+    font-weight: 700;
+    color: var(--ink-black);
+    margin-bottom: 4px;
+}
+
+.english-example {
+    font-family: var(--font-handwriting);
+    font-size: 1.15rem;
+    color: #3A3214;
+}
+
+.crayon-divider {
+    border: none;
+    border-top: 1px dashed rgba(26, 26, 26, 0.3);
+    margin: 14px 0;
+}
+
+.mini-sketch-btn {
+    background: rgba(255, 255, 255, 0.9);
+    border: 2px solid var(--ink-black);
+    border-radius: 8px;
+    padding: 4px 10px;
+    font-weight: 800;
+    font-size: 0.8rem;
+    cursor: pointer;
+}
+
+/* --------------------------------------------------------------------------
+   ARAÇ 2: SÜREYE GÖRE DOLUP BİTEN ANİMASYONLU DEV KALEM (CRAYON TIMER)
+   -------------------------------------------------------------------------- */
+.timer-widget {
+    background: linear-gradient(90deg, #FFE8D1 0%, #FFFDF9 22%, #FFFDF9 78%, #FFD6AD 100%);
+    border: 3.5px solid var(--ink-black);
+    border-radius: 26px 26px 32px 32px;
+    padding: 74px 20px 44px;
+    position: relative;
+    box-shadow: 6px 8px 0 var(--primary-orange), 6px 8px 0 3.5px var(--ink-black);
+    display: flex;
+    flex-direction: column;
+    margin-top: 28px;
+}
+
+/* Dev Kalemin Üstteki Sivri Ahşap ve Turuncu Kalem Ucu */
+.timer-widget::before {
+    content: "";
+    position: absolute;
+    top: -54px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    height: 58px;
+    background:
+        linear-gradient(180deg, var(--primary-orange) 0%, var(--primary-orange) 38%, #F5CBA7 38%, #E59866 100%);
+    clip-path: polygon(50% 0%, 92% 100%, 8% 100%);
+    border-bottom: 3px dashed var(--ink-black);
+    filter: drop-shadow(0 -3px 0 var(--ink-black));
+    pointer-events: none;
+}
+
+/* Dev Kalemin Altındaki Metal Bilezik ve Pembe/Turuncu Silgi Tabanı */
+.timer-widget::after {
+    content: "✏️ SÜRE DOLUNCA ZİL ÇALAR";
+    position: absolute;
+    bottom: -6px;
+    left: -3px;
+    right: -3px;
+    height: 34px;
+    background: linear-gradient(180deg, #CBD5E1 0%, #94A3B8 38%, #FF7675 38%, #E17055 100%);
+    border: 3.5px solid var(--ink-black);
+    border-radius: 0 0 28px 28px;
+    display: flex;
+    align-items: flex-end;
+    justify-content: center;
+    padding-bottom: 3px;
+    font-family: var(--font-heading);
+    font-size: 0.72rem;
+    font-weight: 800;
+    color: var(--pure-white);
+    letter-spacing: 1px;
+    pointer-events: none;
+}
+
+.bell-badge {
+    background: var(--accent-yellow);
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.8rem;
+    font-weight: 800;
+}
+
+.timer-preset-buttons {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 8px;
+    margin-bottom: 14px;
+}
+
+.timer-preset-btn {
+    padding: 8px 6px;
+    border: 2.5px solid var(--ink-black);
+    border-radius: 12px;
+    background: var(--pure-white);
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 2px 2px 0 var(--ink-black);
+    transition: all 0.15s ease;
+}
+
+.timer-preset-btn.active-preset {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+    transform: translateY(-2px);
+}
+
+.timer-display-frame {
+    font-family: var(--font-heading);
+    font-size: 2.85rem;
+    font-weight: 700;
+    text-align: center;
+    background: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 16px;
+    padding: 8px;
+    margin-bottom: 14px;
+    color: var(--primary-orange-dark);
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.08);
+}
+
+/* Süreye Göre Dolup Boşalan Animasyonlu Kalem Gövdesi (Yatay Kalem Tüpü) */
+.crayon-progress-track {
+    width: 100%;
+    height: 38px;
+    background: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 20px 10px 10px 20px;
+    overflow: hidden;
+    margin-bottom: 16px;
+    position: relative;
+    box-shadow: inset 0 3px 6px rgba(0, 0, 0, 0.15);
+}
+
+/* Kalem Gövdesinin İçindeki Canlı Akan Turuncu-Sarı Boya Dolumu */
+.crayon-progress-fill {
+    width: 100%;
+    height: 100%;
+    background: repeating-linear-gradient(
+        -45deg,
+        var(--primary-orange) 0px,
+        var(--primary-orange) 14px,
+        var(--accent-yellow) 14px,
+        var(--accent-yellow) 28px
+    );
+    background-size: 40px 40px;
+    animation: crayonLiquidFlow 1.2s linear infinite;
+    transition: width 0.4s linear;
+    border-right: 4px solid var(--ink-black);
+    position: relative;
+}
+
+@keyframes crayonLiquidFlow {
+    0% { background-position: 0 0; }
+    100% { background-position: 40px 0; }
+}
+
+.timer-action-buttons {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: auto;
+}
+
+/* --------------------------------------------------------------------------
+   ARAÇ 3: AKILLI KALEM / ŞANSLI KALEM (LUCKY PENCIL) ÖĞRENCİ VE SORU SEÇİCİ
+   -------------------------------------------------------------------------- */
+.lucky-pencil-widget {
+    background-color: var(--pure-white);
+    /* Turuncu-Beyaz Kareli Akıllı Kalem Defteri Dokusu */
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px);
+    background-size: 20px 20px;
+    border: 3.5px solid var(--ink-black);
+    border-top: 12px solid var(--primary-orange);
+    border-radius: 22px;
+    padding: 24px 20px 20px;
+    position: relative;
+    box-shadow: 6px 8px 0 var(--accent-yellow), 6px 8px 0 3.5px var(--ink-black);
+    display: flex;
+    flex-direction: column;
+}
+
+/* Akıllı Kalem Üst Başlık Rozeti */
+.lucky-pencil-widget::before {
+    content: "🎯 AKILLI KALEM SINIF SEÇİCİ";
+    position: absolute;
+    top: -20px;
+    right: 18px;
+    background: var(--ink-black);
+    color: var(--accent-yellow);
+    font-family: var(--font-heading);
+    font-size: 0.74rem;
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    border: 2px solid var(--primary-orange);
+}
+
+.teacher-class-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.class-tab-btn {
+    padding: 4px 8px;
+    font-size: 0.75rem;
+    font-weight: 800;
+    border: 2px solid var(--ink-black);
+    border-radius: 8px;
+    background: var(--pure-white);
+    cursor: pointer;
+}
+
+.class-tab-btn.active-class-tab {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+}
+
+.lucky-student-form {
+    display: grid;
+    grid-template-columns: 105px 1fr auto;
+    gap: 6px;
+    margin-bottom: 12px;
+}
+
+.sketch-input {
+    border: 2.5px solid var(--ink-black);
+    border-radius: 12px;
+    padding: 9px 12px;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 700;
+    background: var(--pure-white);
+    width: 100%;
+    box-shadow: 2px 2px 0 rgba(255, 107, 0, 0.35);
+}
+
+.sketch-input:focus {
+    outline: none;
+    border-color: var(--primary-orange);
+    box-shadow: 3px 3px 0 var(--accent-yellow);
+}
+
+/* Akıllı Kalem Dönen Çark / Kalem Sahnesi */
+.spinning-pencil-arena {
+    background: linear-gradient(135deg, #FFF8EC 0%, #FFE8CC 100%);
+    border: 3px dashed var(--primary-orange);
+    border-radius: 18px;
+    padding: 16px 12px;
+    text-align: center;
+    margin-bottom: 12px;
+    position: relative;
+    box-shadow: inset 0 0 12px rgba(255, 107, 0, 0.12);
+}
+
+.spinning-pencil-graphic {
+    font-size: 3rem;
+    display: inline-block;
+    filter: drop-shadow(3px 4px 0 var(--ink-black));
+    transition: transform 0.75s cubic-bezier(0.18, 0.89, 0.32, 1.28);
+}
+
+.spinning-pencil-graphic.is-spinning {
+    transform: rotate(1080deg) scale(1.25);
+}
+
+.lucky-student-name {
+    display: block;
+    font-family: var(--font-heading);
+    font-size: 1.2rem;
+    color: var(--primary-orange-dark);
+    margin: 6px 0 4px;
+}
+
+.lucky-question-text {
+    font-size: 0.9rem;
+    font-weight: 800;
+    color: var(--ink-black);
+}
+
+.class-roster-wrapper {
+    margin-top: 12px;
+    border-top: 2px dashed var(--primary-orange);
+    padding-top: 10px;
+}
+
+.roster-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.82rem;
+    font-weight: 800;
+    margin-bottom: 8px;
+}
+
+.text-danger-btn {
+    background: none;
+    border: none;
+    color: var(--danger-red);
+    font-weight: 800;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.class-roster-chips {
+    list-style: none;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    max-height: 95px;
+    overflow-y: auto;
+}
+
+.roster-chip {
+    background: var(--accent-yellow);
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 3px 10px;
+    font-size: 0.78rem;
+    font-weight: 800;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    box-shadow: 2px 2px 0 var(--ink-black);
+}
+
+.roster-chip button {
+    background: none;
+    border: none;
+    font-weight: 900;
+    cursor: pointer;
+    color: var(--danger-red);
+}
+
+/* ==========================================================================
+   6. DİĞER TÜM SEKMELER (SÖZLÜK, NOT DEFTERİ, OYUNLAR, MOTİVASYON, HAKKINDA)
+      KARELİ / ÇİZGİLİ TURUNCU-BEYAZ DEFTER VE BOYA KALEMİ TASARIMI
+   ========================================================================== */
+.notebook-card-widget:not(.timer-widget):not(.lucky-pencil-widget) {
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    border: 3px solid var(--ink-black);
+    border-top: 9px solid var(--primary-orange);
+    border-radius: 16px;
+    padding: 24px 20px;
+    box-shadow: 5px 5px 0 var(--primary-orange), 5px 5px 0 3px var(--ink-black);
+    display: flex;
+    flex-direction: column;
+}
+
+.section-paper-header {
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.16) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    border: 3px solid var(--ink-black);
+    border-left: 10px solid var(--primary-orange);
+    border-radius: 16px;
+    padding: 24px;
+    margin-bottom: 24px;
+    box-shadow: 5px 5px 0 var(--accent-yellow), 5px 5px 0 3px var(--ink-black);
+}
+
+.section-paper-header h2 {
+    font-family: var(--font-heading);
+    font-size: 1.75rem;
+    color: var(--primary-orange-dark);
+    margin-bottom: 6px;
+}
+
+.dictionary-search-bar {
+    display: flex;
+    gap: 12px;
+    margin-bottom: 22px;
+}
+
+.large-search-input {
+    font-size: 1.05rem;
+    padding: 13px 16px;
+}
+
+.dictionary-results-grid,
+.grammar-cards-grid,
+.practical-tips-grid,
+.motivation-cards-grid,
+.future-modules-grid,
+.saved-notes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(290px, 1fr));
+    gap: 22px;
+    margin-bottom: 28px;
+}
+
+.sub-crayon-title {
+    font-family: var(--font-heading);
+    font-size: 1.4rem;
+    margin-bottom: 18px;
+}
+
+/* Kişisel Kareli / Çizgili Not Defteri Sayfası */
+.personal-notebook-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+}
+
+.notebook-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    background: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 14px;
+    padding: 14px;
+    box-shadow: 4px 4px 0 var(--primary-orange);
+}
+
+.note-title-field {
+    max-width: 420px;
+}
+
+.notebook-toolbar-btns {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.save-status-pill {
+    background: #E8F8F5;
+    color: #117864;
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 6px 12px;
+    font-size: 0.82rem;
+    font-weight: 800;
+}
+
+.lined-paper-sheet {
+    position: relative;
+    background-color: var(--pure-white);
+    border: 3.5px solid var(--ink-black);
+    border-top: 12px solid var(--primary-orange);
+    border-radius: 16px;
+    box-shadow: 6px 6px 0 var(--accent-yellow), 6px 6px 0 3.5px var(--ink-black);
+    overflow: hidden;
+}
+
+.paper-red-margin {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 52px;
+    width: 3px;
+    background: var(--primary-orange);
+    pointer-events: none;
+}
+
+.lined-textarea {
+    width: 100%;
+    min-height: 360px;
+    border: none;
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.18) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.25) 1.5px, transparent 1.5px);
+    background-size: 32px 32px;
+    padding: 8px 24px 24px 68px;
+    font-family: var(--font-handwriting);
+    font-size: 1.4rem;
+    line-height: 32px;
+    color: var(--ink-black);
+    resize: vertical;
+}
+
+.lined-textarea:focus {
+    outline: none;
+}
+
+/* Oyun Merkezi (Classroom Games) */
+.game-selector-tabs,
+.tips-filter-bar {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+}
+
+.game-tab-pill,
+.tip-filter-btn {
+    padding: 10px 18px;
+    border: 2.5px solid var(--ink-black);
+    border-radius: 999px;
+    background: var(--pure-white);
+    font-family: var(--font-heading);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--ink-black);
+}
+
+.game-tab-pill.active-game-tab,
+.tip-filter-btn.active-filter {
+    background: var(--primary-orange);
+    color: var(--pure-white);
+}
+
+.game-status-bar {
+    background: var(--pure-white);
+    border: 3px solid var(--ink-black);
+    border-radius: 16px;
+    padding: 14px 20px;
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 12px;
+    box-shadow: 4px 4px 0 var(--primary-orange);
+}
+
+.host-permission-pill {
+    background: var(--accent-yellow);
+    border: 2px solid var(--ink-black);
+    border-radius: 999px;
+    padding: 5px 12px;
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-right: 8px;
+}
+
+.game-arena-stage {
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px);
+    background-size: 24px 24px;
+    border: 3.5px solid var(--ink-black);
+    border-top: 10px solid var(--primary-orange);
+    border-radius: 18px;
+    padding: 28px;
+    box-shadow: 6px 6px 0 var(--accent-yellow), 6px 6px 0 3.5px var(--ink-black);
+    text-align: center;
+}
+
+.game-question-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.question-counter {
+    font-weight: 800;
+    color: var(--charcoal-gray);
+}
+
+.game-prompt-text {
+    font-family: var(--font-heading);
+    font-size: 1.6rem;
+    margin-bottom: 22px;
+}
+
+.game-interactive-zone {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 14px;
+    max-width: 780px;
+    margin: 0 auto 20px;
+}
+
+.game-option-btn {
+    padding: 14px 18px;
+    border: 2.5px solid var(--ink-black);
+    border-radius: 14px;
+    background: var(--pure-white);
+    font-family: var(--font-body);
+    font-size: 1.05rem;
+    font-weight: 800;
+    cursor: pointer;
+    box-shadow: 3px 3px 0 var(--primary-orange);
+    transition: transform 0.12s ease, background 0.15s ease;
+}
+
+.game-option-btn:hover {
+    background: var(--accent-yellow);
+    transform: translateY(-2px);
+}
+
+.game-option-btn.correct-choice {
+    background: var(--success-green);
+    color: var(--pure-white);
+}
+
+.game-option-btn.wrong-choice {
+    background: var(--danger-red);
+    color: var(--pure-white);
+}
+
+.game-feedback-banner {
+    padding: 12px 18px;
+    border: 2.5px solid var(--ink-black);
+    border-radius: 12px;
+    font-weight: 800;
+    margin-bottom: 16px;
+    display: inline-block;
+}
+
+/* Sadece Beyza'ya Özel Motivasyon Köşesi */
+.featured-motivation-spotlight {
+    background: linear-gradient(155deg, #FFF86B 0%, #FFEE55 55%, #FDE047 100%);
+    border-radius: 4px;
+    padding: 30px;
+    text-align: center;
+    box-shadow:
+        0 4px 0 -1px #FACC15,
+        0 7px 0 -2px #EAB308,
+        -6px 16px 24px rgba(0, 0, 0, 0.18);
+    margin-bottom: 28px;
+    position: relative;
+}
+
+.spotlight-pin {
+    display: inline-block;
+    background: var(--primary-orange);
+    color: var(--pure-white);
+    font-weight: 800;
+    padding: 4px 12px;
+    border-radius: 999px;
+    margin-bottom: 12px;
+}
+
+.motivation-quote-text {
+    font-family: var(--font-handwriting);
+    font-size: 1.65rem;
+    line-height: 1.45;
+    max-width: 780px;
+    margin: 0 auto 18px;
+    color: var(--ink-black);
+}
+
+/* Hakkında & Geliştirici Kartları */
+.about-content-layout {
+    display: grid;
+    grid-template-columns: 1.2fr 1fr;
+    gap: 28px;
+}
+
+.about-project-card p,
+.about-developer-card p {
+    margin-top: 10px;
+    line-height: 1.6;
+    font-weight: 600;
+}
+
+.dev-badge {
+    display: inline-block;
+    align-self: flex-start;
+    background: var(--ink-black);
+    color: var(--accent-yellow);
+    font-weight: 800;
+    font-size: 0.78rem;
+    padding: 4px 10px;
+    border-radius: 999px;
+    margin-bottom: 8px;
+}
+
+.dev-signature-footer {
+    margin-top: auto;
+    padding-top: 16px;
+    font-family: var(--font-handwriting);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--primary-orange-dark);
+}
+
+/* ==========================================================================
+   7. GİRİŞ PENCERELERİ (MODALS)
+   ========================================================================== */
+.studio-modal-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(24, 24, 24, 0.65);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    z-index: 2000;
+}
+
+.studio-modal-card {
+    background-color: var(--pure-white);
+    background-image:
+        linear-gradient(to right, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px),
+        linear-gradient(to bottom, rgba(255, 107, 0, 0.15) 1.5px, transparent 1.5px);
+    background-size: 22px 22px;
+    border: 4px solid var(--ink-black);
+    border-top: 12px solid var(--primary-orange);
+    border-radius: 20px;
+    max-width: 460px;
+    width: 100%;
+    padding: 30px 24px;
+    position: relative;
+    box-shadow: 8px 8px 0 var(--accent-yellow), 8px 8px 0 4px var(--ink-black);
+}
+
+.modal-close-x {
+    position: absolute;
+    top: 14px;
+    right: 14px;
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    border: 2px solid var(--ink-black);
+    background: var(--accent-yellow);
+    font-weight: 900;
+    cursor: pointer;
+}
+
+.modal-crayon-header {
+    text-align: center;
+    margin-bottom: 18px;
+}
+
+.modal-icon {
+    font-size: 2.5rem;
+}
+
+.modal-crayon-header h3 {
+    font-family: var(--font-heading);
+    font-size: 1.5rem;
+    margin: 4px 0;
+}
+
+.modal-form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.modal-form label {
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.modal-error-text {
+    color: var(--danger-red);
+    font-weight: 800;
+    font-size: 0.9rem;
+}
+
+.saved-player-prompt {
+    background: #FFF8F0;
+    border: 2.5px dashed var(--primary-orange);
+    border-radius: 12px;
+    padding: 14px;
+    margin-bottom: 14px;
+    text-align: center;
+}
+
+.saved-player-summary {
+    display: flex;
+    justify-content: space-between;
+    background: var(--pure-white);
+    border: 2px solid var(--ink-black);
+    border-radius: 10px;
+    padding: 8px 12px;
+    margin: 8px 0 12px;
+    font-weight: 800;
+}
+
+.gender-avatar-selector {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-bottom: 8px;
+}
+
+.avatar-radio-card input {
+    display: none;
+}
+
+.avatar-preview-box {
+    display: block;
+    text-align: center;
+    padding: 10px;
+    border: 2.5px solid var(--ink-black);
+    border-radius: 10px;
+    background: var(--pure-white);
+    font-weight: 800;
+    cursor: pointer;
+}
+
+.avatar-radio-card input:checked + .avatar-preview-box {
+    background: var(--accent-yellow);
+    box-shadow: 3px 3px 0 var(--primary-orange);
+}
+
+/* ==========================================================================
+   8. MOBİL VE TABLET UYUMLULUĞU
+   ========================================================================== */
+@media (max-width: 980px) {
+    .paper-rolls-nav,
+    .home-widgets-grid,
+    .about-content-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .paper-roll-sheet {
+        position: relative;
+        top: 0;
+        left: 0;
+        width: 100%;
+    }
+
+    .locket-showcase-area {
+        align-items: center;
+        padding-left: 0;
+    }
+
+    .silver-locket-chain {
+        margin-left: 0;
+    }
+
+    .locket-link-row {
+        flex-direction: column;
+    }
+
+    .locket-white-box,
+    .locket-copy-btn {
+        width: 100%;
+    }
+}
