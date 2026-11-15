@@ -5,6 +5,9 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Teacher Beyza's Creative Studio</title>
 
+  <!-- Google Search Console Doğrulama Etiketi -->
+  <meta name="google-site-verification" content="8S4tPEuD25Xt7Yn488AMTTC-b3OpnMwsSkiU3tcVkrE" />
+
   <!-- Google Arama Motoru (SEO) - Öğrenci Arayüzü Açık, Öğretmen Linke Özel -->
   <meta id="seoRobotsMeta" name="robots" content="index, follow" />
   <meta name="description" content="Teacher Beyza's Creative Studio - İnteraktif İngilizce Sınıf Stüdyosu, Sözlük, Gramer ve Canlı Sınıf Oyunları." />
@@ -16,7 +19,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="style.css?v=1.1" />
 </head>
 <body>
 
@@ -50,7 +53,7 @@
 
     <div class="utility-right">
       <!-- Öğretmen Giriş Yaptığında Profilim & Çıkış Menüsü -->
-      <button id="teacherAuthBtn" class="mini-pill-btn teacher-pill">👩‍🏫 Öğretmen Girişi</button>
+      <button id="teacherAuthBtn" class="mini-pill-btn teacher-pill hidden">👩‍🏫 Öğretmen Girişi</button>
 
       <div id="teacherProfileDropdownWrap" class="profile-dropdown-wrap hidden">
         <button class="student-avatar-trigger teacher-active-trigger" type="button">
@@ -107,7 +110,7 @@
       </div>
     </div>
 
-    <!-- 3. RULO: İLHAM & REHBER (ESKİ BÖLÜMLER + ŞİKAYET KUTUSU BURADA) -->
+    <!-- 3. RULO: İLHAM & REHBER -->
     <div class="scroll-dropdown">
       <button class="scroll-capsule-btn" type="button">
         <span class="scroll-spiral"></span>
@@ -179,7 +182,7 @@
 
               <div class="locket-body-wrap">
                 <div class="locket-cover">
-                  <svg viewBox="0 0 220 200" class="locket-svg">
+                  <svg width="180" height="150" viewBox="0 0 220 200" class="locket-svg">
                     <defs>
                       <linearGradient id="heartFillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
                         <stop offset="0%" stop-color="#ffffff" />
@@ -313,7 +316,7 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 3: DİNLEME & TELAFFUZ (LISTENING) LABORATUVARI (KENDİ ÖZEL BÖLÜMÜ)
+         SAYFA 3: DİNLEME & TELAFFUZ (LISTENING) LABORATUVARI
     ======================================================== -->
     <section id="page-listening" class="notebook-page">
       <div class="lined-box section-banner-box">
@@ -339,7 +342,7 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 4: ÇALIŞMA KAĞIDI (WORKSHEET) OLUŞTURUCU (KENDİ ÖZEL BÖLÜMÜ)
+         SAYFA 4: ÇALIŞMA KAĞIDI (WORKSHEET) OLUŞTURUCU
     ======================================================== -->
     <section id="page-worksheet" class="notebook-page">
       <div class="lined-box section-banner-box">
@@ -378,7 +381,6 @@
         </div>
       </div>
 
-      <!-- Canlı Çalışma Kağıdı Önizleme Alanı -->
       <div id="worksheetPreviewBox" class="lined-box"></div>
     </section>
 
@@ -495,7 +497,7 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 7: PRATİK İNGİLİZCE & DERS İPUÇLARI (GERİ GETİRİLDİ!)
+         SAYFA 7: PRATİK İNGİLİZCE & DERS İPUÇLARI
     ======================================================== -->
     <section id="page-tips" class="notebook-page">
       <div class="lined-box section-banner-box">
@@ -549,7 +551,7 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 8: WEB SİTESİ ŞİKAYET & ÖNERİ KUTUSU (3. İLHAM & REHBER ALTINDA!)
+         SAYFA 8: WEB SİTESİ ŞİKAYET & ÖNERİ KUTUSU
     ======================================================== -->
     <section id="page-complaints" class="notebook-page">
       <div class="lined-box section-banner-box">
@@ -583,7 +585,7 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 9: GELECEK ATÖLYE MODÜLLERİ (TEMİZLENDİ - SADECE GELECEK PLANLAR VE SÜRÜM NOTU!)
+         SAYFA 9: GELECEK ATÖLYE MODÜLLERİ
     ======================================================== -->
     <section id="page-workshop" class="notebook-page">
       <div class="lined-box section-banner-box">
@@ -591,7 +593,6 @@
         <p>Teacher Beyza's Creative Studio modüler çekirdeği; yeni eğitim araçları, özelleştirmeler ve sürüm güncellemeleri için hazır!</p>
       </div>
 
-      <!-- SADECE GELECEK GÜNCELLEMELER (AYNI ANDA ÇIKACAK 3 YENİ GÜNCELLEME) -->
       <div class="vocab-three-grid" style="margin-bottom:24px">
         <div class="workshop-lined-card">
           <div class="workshop-bar">YAKINDA</div>
@@ -642,40 +643,12 @@
     </section>
 
     <!-- =======================================================
-         SAYFA 10: HAKKINDA & GELİŞTİRİCİ (GERİ GETİRİLDİ + BEYZA HOCA MOTİVASYON KÖŞESİ)
+         SAYFA 10: HAKKINDA & GELİŞTİRİCİ
     ======================================================== -->
     <section id="page-about" class="notebook-page">
       <div class="lined-box section-banner-box">
         <h2>👩‍🏫 Hakkında & Geliştirici</h2>
-        <p>Teacher Beyza's Creative Studio'nun hikayesi, eğitim vizyonu ve geliştirici notları.</p>
-      </div>
-
-      <div class="patch-notes-two-cols" style="margin-bottom:18px">
-        <div class="vocab-lined-card">
-          <span class="tag-orange">EĞİTİM VİZYONU</span>
-          <h3>👩‍🏫 Teacher Beyza's Creative Studio</h3>
-          <p style="margin-top:8px;line-height:1.6">
-            İngilizce öğrenimini klasik ders kalıplarından çıkarıp; her öğrencinin merakla katıldığı, oyunlarla öğrendiği, kendi notlarını ve çizimlerini özgürce tutabildiği interaktif bir sınıf ekosistemine dönüştürmek için tasarlandı.
-          </p>
-        </div>
-
-        <div class="vocab-lined-card">
-          <span class="tag-dark">GELİŞTİRİCİ & TASARIM</span>
-          <h3>💻 Geliştirici: Harun</h3>
-          <p style="margin-top:8px;line-height:1.6">
-            Bu platform, Teacher Beyza'nın sınıf içi derslerini ve öğrencilerinin öğrenme yolculuğunu en keyifli hale getirmek amacıyla <strong>Harun</strong> tarafından özel ve modüler bir mimariyle geliştirilmiştir.
-          </p>
-        </div>
-      </div>
-
-      <!-- SADECE BEYZA HOCA GİRİŞ YAPTIĞINDA GÖRÜNEN ~Harun İMZALI ÖZEL MOTİVASYON KÖŞESİ -->
-      <div id="teacherSecretMotivationCard" class="lined-box">
-        <div class="flex-between-wrap" style="margin-bottom:12px">
-          <h3>💌 Beyza Hoca İçin Özel Motivasyon & Moral Köşesi</h3>
-          <button id="nextMotivationQuoteBtn" class="mini-pill-btn orange-pill">✨ Sıradaki Motivasyon Sözü</button>
-        </div>
-        <blockquote id="motivationQuoteText" class="quote-display-box"></blockquote>
-        <p id="motivationQuoteAuthor" class="quote-author-sign"></p>
+        <p>Bu renkli sınıf stüdyosunun ortaya çıkış hikayesi ve arkasındaki samimi emek. 🧡</p>
       </div>
     </section>
 
@@ -685,7 +658,7 @@
        MODALLAR (OTURUM AÇ/KAYIT OL, PROFİLİM & AVATAR DUVARI, ÖĞRETMEN, OYUN KURULUMU)
   ========================================================== -->
 
-  <!-- 1. ÖĞRENCİ OTURUM AÇ / KAYIT OL MODALI (KIZ / ERKEK AVATAR SEÇİMLİ) -->
+  <!-- 1. ÖĞRENCİ OTURUM AÇ / KAYIT OL MODALI -->
   <div id="studentAuthModal" class="modal-overlay hidden">
     <div class="modal-card">
       <div class="modal-header">
@@ -697,7 +670,6 @@
         <button id="switchToRegisterTab" class="m-tab">📝 Kayıt Ol</button>
       </div>
 
-      <!-- Giriş -->
       <div id="studentLoginForm" class="form-stack">
         <label>Kullanıcı Adı:</label>
         <input type="text" id="loginUsernameInput" placeholder="Kullanıcı adını gir..." />
@@ -707,7 +679,6 @@
         <button id="submitStudentLoginBtn" class="mini-pill-btn orange-pill">🚀 Giriş Yap</button>
       </div>
 
-      <!-- Kayıt -->
       <div id="studentRegisterForm" class="form-stack hidden">
         <label>Kullanıcı Adı:</label>
         <input type="text" id="regUsernameInput" placeholder="Örn: zeynep_2b veya emir_548" />
@@ -738,7 +709,7 @@
     </div>
   </div>
 
-  <!-- 2. "PROFİLİM" EKRANI (İSİM DEĞİŞTİRME, KIZ/ERKEK AVATAR ÖZELLEŞTİRME, AVATAR DUVARI, ROZETLER & HESAP SİLME) -->
+  <!-- 2. "PROFİLİM" EKRANI -->
   <div id="avatarWallModal" class="modal-overlay hidden">
     <div class="modal-card wide-modal">
       <div class="modal-header">
@@ -746,7 +717,6 @@
         <button class="close-x" data-close="avatarWallModal">✕</button>
       </div>
 
-      <!-- Üst Profil Kartı -->
       <div class="wall-top-box">
         <div id="wallAvatarCircle" class="wall-big-av">👧🏻</div>
         <div style="flex:1">
@@ -755,13 +725,11 @@
         </div>
       </div>
 
-      <!-- Profilim İçinde 2 Sekme: 1. Avatar Duvarı & Başarımlar | 2. Profili & Avatarı Özelleştir -->
       <div class="modal-tab-switch">
         <button id="profTabWallBtn" class="m-tab active">🛡️ Avatar Duvarı, Rozetler & İstatistikler</button>
         <button id="profTabCustomizeBtn" class="m-tab">🎨 Profili, İsmimi & Avatarı Özelleştir</button>
       </div>
 
-      <!-- SEKME A: AVATAR DUVARI, İSTATİSTİKLER, ROZETLER & GİZLİLİK -->
       <div id="profileWallPane">
         <div class="privacy-box">
           <label><input type="checkbox" id="toggleShowStats" checked /> 📊 Oyun İstatistiklerimi (Oynanan / Kazanılan / Kaybedilen / Skor) Sergile</label>
@@ -796,7 +764,6 @@
         </div>
       </div>
 
-      <!-- SEKME B: PROFİLİ, KULLANICI ADINI VE KIZ/ERKEK AVATARINI ÖZELLEŞTİR -->
       <div id="profileCustomizePane" class="hidden">
         <div class="form-stack">
           <label>✏️ Kullanıcı Adı / Görünen İsim Değiştir:</label>
@@ -838,7 +805,7 @@
       </div>
       <div class="form-stack">
         <label>Öğretmen Şifresi:</label>
-        <input type="password" id="teacherPasswordInput" placeholder="Şifreyi girin (beyza2026)..." />
+        <input type="password" id="teacherPasswordInput" placeholder="Şifreyi girin..." />
         <p id="teacherLoginError" class="err-text"></p>
         <button id="submitTeacherLoginBtn" class="mini-pill-btn orange-pill">🔓 Giriş Yap</button>
       </div>
@@ -898,6 +865,6 @@
     </div>
   </div>
 
-  <script src="script.js"></script>
+  <script src="script.js?v=1.1"></script>
 </body>
 </html>
