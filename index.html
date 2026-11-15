@@ -1,664 +1,903 @@
 <!DOCTYPE html>
 <html lang="tr">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Teacher Beyza's Creative Studio | ELT Classroom Hub</title>
-    <!-- Not Defteri ve Boya Kalemi Temasına Uygun Google Fontları -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&family=Patrick+Hand&display=swap" rel="stylesheet">
-    <!-- Ana Tasarım Dosyamız -->
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Teacher Beyza's Creative Studio</title>
+
+  <!-- Google Arama Motoru (SEO) - Öğrenci Arayüzü Açık, Öğretmen Linke Özel -->
+  <meta id="seoRobotsMeta" name="robots" content="index, follow" />
+  <meta name="description" content="Teacher Beyza's Creative Studio - İnteraktif İngilizce Sınıf Stüdyosu, Sözlük, Gramer ve Canlı Sınıf Oyunları." />
+  <meta name="keywords" content="Teacher Beyza, Teacher Beyza's Creative Studio, İngilizce Stüdyosu, Classroom Games" />
+
+  <!-- Tarayıcı Sekmesi İkonu (Favicon) - Dünya İşareti Yerine Beyza Hoca Avatarı -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='48' fill='%23fff7ed' stroke='%23f97316' stroke-width='6'/%3E%3Ctext x='50' y='68' font-size='56' text-anchor='middle'%3E%F0%9F%91%A9%E2%80%8D%F0%9F%8F%AB%3C/text%3E%3C/svg%3E" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-    <!-- ÜST KONTROL VE PROFİL ŞERİDİ -->
-    <header class="studio-top-bar">
-        <div class="brand-badge" data-target="view-home">
-            <span class="crayon-icon">🖍️</span>
-            <span class="brand-title">Beyza's Studio</span>
-            <span id="roleBadge" class="role-badge">Öğrenci Modu</span>
+  <!-- ÜST KULLANICI & ÖĞRETMEN ÇUBUĞU -->
+  <div class="top-utility-strip">
+    <div class="utility-left">
+      <!-- Giriş Yapılmamışken Sol Üstte Yan Yana Oturum Aç / Kayıt Ol -->
+      <div id="guestAuthButtons" class="auth-pair">
+        <button id="openLoginBtn" class="mini-pill-btn login-pill">🔑 Oturum Aç</button>
+        <button id="openRegisterBtn" class="mini-pill-btn register-pill">📝 Kayıt Ol</button>
+      </div>
+
+      <!-- Öğrenci Giriş Yaptığında Açılan Profil Kutusu (Çıkış Tuşunun Hemen Üstünde "Profilim") -->
+      <div id="studentProfileDropdownWrap" class="profile-dropdown-wrap hidden">
+        <button id="studentProfileTriggerBtn" class="student-avatar-trigger" type="button">
+          <span id="topStudentAvatar" class="av-circle">👧🏻</span>
+          <span id="topStudentName">Öğrenci</span>
+          <span id="topStudentClassBadge" class="cls-tag">2-B</span>
+          <span style="font-size:0.75rem;margin-left:4px">▼</span>
+        </button>
+        <div class="profile-dropdown-menu">
+          <button id="openMyProfileBtn" class="profile-menu-item profile-main-item" type="button">
+            👤 Profilim (Avatar & Duvar)
+          </button>
+          <button id="studentLogoutBtn" class="profile-menu-item logout-item" type="button">
+            🚪 Çıkış Yap
+          </button>
         </div>
-
-        <!-- SAĞ ÜST ARAÇLAR: SES AÇ/KAPAT, ÖĞRETMEN GİRİŞİ VE MİNİ PROFİL -->
-        <div class="top-right-controls">
-            <!-- El Çizimi Ses Aç/Kapat Hoparlör İkonu -->
-            <button id="soundToggleBtn" class="sketch-icon-btn" title="Ses Efektlerini Aç / Kapat" aria-label="Ses Aç Kapat">
-                <svg id="speakerOnIcon" class="hand-drawn-svg" viewBox="0 0 64 64">
-                    <path d="M12 24 L24 24 L38 12 L38 52 L24 40 L12 40 Z" />
-                    <path d="M45 22 C50 27, 50 37, 45 42" />
-                    <path d="M51 15 C59 24, 59 40, 51 49" />
-                </svg>
-                <svg id="speakerOffIcon" class="hand-drawn-svg hidden" viewBox="0 0 64 64">
-                    <path d="M12 24 L24 24 L38 12 L38 52 L24 40 L12 40 Z" />
-                    <path d="M44 22 L58 42" />
-                    <path d="M58 22 L44 42" />
-                </svg>
-                <span id="soundStatusText">Ses: Açık</span>
-            </button>
-
-            <!-- Öğretmen Giriş Butonu -->
-            <button id="teacherLoginTriggerBtn" class="sketch-btn teacher-key-btn">
-                🔑 Öğretmen Girişi
-            </button>
-
-            <!-- Sağ Üst Köşe Mini Profil (Kullanıcı Adı Oluşturulunca veya Öğretmen Girince Aktifleşir) -->
-            <div id="miniProfileContainer" class="mini-profile-container hidden">
-                <button id="miniProfileBtn" class="mini-profile-trigger">
-                    <div id="profileAvatarBox" class="profile-avatar-box"></div>
-                    <div class="profile-meta">
-                        <span id="profileDisplayName" class="profile-name">Misafir</span>
-                        <span id="profileDisplayScore" class="profile-score">⭐ 0 Puan</span>
-                    </div>
-                    <span class="dropdown-caret">▼</span>
-                </button>
-                <div id="profileDropdownMenu" class="profile-dropdown-menu hidden">
-                    <div class="dropdown-info-row">
-                        <small id="profileClassLabel">Sınıf: A</small>
-                    </div>
-                    <button id="logoutBtn" class="logout-action-btn">🚪 Çıkış Yap</button>
-                </div>
-            </div>
-        </div>
-    </header>
-
-    <!-- YAN YANA 3'LÜ AÇILIR RULO KAĞIT MENÜ SİSTEMİ -->
-    <nav class="paper-rolls-nav" aria-label="Ana Navigasyon">
-        
-        <!-- 1. RULO KAĞIT: KİŞİSEL STÜDYO VE ARAÇLAR -->
-        <div class="paper-roll-wrapper" id="roll-1">
-            <button class="paper-roll-cylinder" aria-expanded="false">
-                <span class="roll-pin-left"></span>
-                <span class="roll-title">📜 1. Stüdyo & Araçlar</span>
-                <span class="roll-pin-right"></span>
-            </button>
-            <div class="paper-roll-sheet">
-                <ul class="roll-menu-list">
-                    <li>
-                        <button class="roll-menu-item active-nav" data-target="view-home">
-                            <span>🏠 Ana Sayfaya Dön</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="roll-menu-item" data-target="view-dictionary">
-                            <span>📖 Sözlük & Gramer Rehberi</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="roll-menu-item" data-target="view-notebook">
-                            <span>📝 Özel Not Defterim</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-                <div class="torn-paper-bottom"></div>
-            </div>
-        </div>
-
-        <!-- 2. RULO KAĞIT: CLASSROOM GAMES (OYUN MERKEZİ) -->
-        <div class="paper-roll-wrapper" id="roll-2">
-            <button class="paper-roll-cylinder" aria-expanded="false">
-                <span class="roll-pin-left"></span>
-                <span class="roll-title">🎮 2. Classroom Games</span>
-                <span class="roll-pin-right"></span>
-            </button>
-            <div class="paper-roll-sheet">
-                <div class="roll-sheet-heading">CLASSROOM GAMES</div>
-                <ul class="roll-menu-list">
-                    <li>
-                        <button class="roll-menu-item game-nav-btn" data-target="view-games" data-game="quiz">
-                            <span>⚡ Quiz Arena (Çoktan Seçmeli)</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="roll-menu-item game-nav-btn" data-target="view-games" data-game="wordfinder">
-                            <span>🔤 Word Finder (Kelime Tamamlama)</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="roll-menu-item game-nav-btn" data-target="view-games" data-game="truefalse">
-                            <span>✅ True or False (Doğru / Yanlış)</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <li>
-                        <button class="roll-menu-item game-nav-btn" data-target="view-games" data-game="sentence">
-                            <span>🧩 Sentence Builder (Cümle Kurma)</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-                <div class="torn-paper-bottom"></div>
-            </div>
-        </div>
-
-        <!-- 3. RULO KAĞIT: PRATİK BİLGİLER, MOTİVASYON (SADECE BEYZA'YA ÖZEL) VE HAKKINDA -->
-        <div class="paper-roll-wrapper" id="roll-3">
-            <button class="paper-roll-cylinder" aria-expanded="false">
-                <span class="roll-pin-left"></span>
-                <span class="roll-title">✨ 3. İlham & Rehber</span>
-                <span class="roll-pin-right"></span>
-            </button>
-            <div class="paper-roll-sheet">
-                <ul class="roll-menu-list">
-                    <!-- EN ÜSTTE: PRATİK İNGİLİZCE BİLGİLERİ -->
-                    <li>
-                        <button class="roll-menu-item" data-target="view-tips">
-                            <span>💡 Pratik İngilizce & Ders İpuçları</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <!-- ORTADA: SADECE BEYZA'YA ÖZEL MOTİVASYON KÖŞESİ (ÖĞRENCİLERDE TAMAMEN GİZLİ) -->
-                    <li id="teacherOnlyMotivationNav" class="teacher-only-element hidden">
-                        <button class="roll-menu-item special-motivation-item" data-target="view-motivation">
-                            <span>🧡 Günlük Motivasyon Köşesi (Özel)</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <!-- GELECEK ÖZELLİKLER BÖLMESİ -->
-                    <li>
-                        <button class="roll-menu-item" data-target="view-future">
-                            <span>🚀 Gelecek Atölye Modülleri</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                    <!-- EN ALTTA: HAKKINDA KISMI -->
-                    <li>
-                        <button class="roll-menu-item" data-target="view-about">
-                            <span>📌 Hakkında & Geliştirici</span>
-                            <svg class="crayon-circle" viewBox="0 0 220 65" preserveAspectRatio="none">
-                                <path d="M15,32 C12,12 65,6 115,8 C170,10 208,16 205,34 C202,52 155,58 102,57 C45,56 10,48 18,28 C22,18 55,14 90,14" />
-                            </svg>
-                        </button>
-                    </li>
-                </ul>
-                <div class="torn-paper-bottom"></div>
-            </div>
-        </div>
-
-    </nav>
-
-    <!-- ANA DEFTER SAHNESİ (TÜM SAYFALAR BURADA DEĞİŞİR) -->
-    <main class="notebook-stage">
-
-        <!-- ==========================================
-             1. SAYFA: ANA SAYFA (KARŞILAMA VE SINIF ARAÇLARI)
-             ========================================== -->
-        <section id="view-home" class="studio-view active-view">
-            
-            <!-- ÖĞRETMEN YÖNETİM PANELİ ŞERİDİ (Sadece Beyza Giriş Yaptığında Görünür) -->
-            <div id="teacherAdminPanel" class="teacher-admin-banner teacher-only-element hidden">
-                <div class="admin-banner-left">
-                    <span class="admin-crown">👑</span>
-                    <div>
-                        <strong>Öğretmen Kontrol Paneli Aktif (Hoş Geldin Beyza Hoca!)</strong>
-                        <p>Öğrencilerin kendi aralarında oyun kurma iznini buradan anlık değiştirebilirsin.</p>
-                    </div>
-                </div>
-                <div class="admin-banner-right">
-                    <label class="permission-switch-label" for="studentHostToggle">
-                        <span>Öğrenciler Oyun Kurabilsin:</span>
-                        <input type="checkbox" id="studentHostToggle">
-                        <span class="crayon-toggle-slider"></span>
-                        <strong id="studentHostStatusText" class="permission-status-badge">Sadece Öğretmen</strong>
-                    </label>
-                </div>
-            </div>
-
-            <!-- ANA KARŞILAMA BAŞLIĞI -->
-            <div class="welcome-notebook-header">
-                <div class="notebook-holes">
-                    <span></span><span></span><span></span><span></span>
-                </div>
-                <p class="welcome-kicker">✨ INTERACTIVE ENGLISH STUDIO & CLASSROOM HUB ✨</p>
-                <h1 class="welcome-main-title">Welcome to Teacher Beyza's Classroom!</h1>
-                <p class="welcome-subtitle">
-                    Boya kalemlerini hazırla, not defterini aç! Birlikte öğrenmek, yarışmak ve keşfetmek için sınıf stüdyomuza hoş geldin.
-                </p>
-            </div>
-
-            <!-- ANİMASYONLU GÜMÜŞ / ÇİZİM KARTLI KOLYE (SABİT ÖĞRENCİ LİNKİ) -->
-            <div class="locket-showcase-area">
-                <div class="silver-locket-chain"></div>
-                <div id="silverLocketCard" class="silver-locket-card" tabindex="0" role="button" aria-expanded="false">
-                    <!-- Kolyenin Kapalı Kapağı -->
-                    <div class="locket-cover">
-                        <div class="locket-engraving">
-                            <span class="locket-gem">💎</span>
-                            <h3>Öğrenci Sınıf Kolyesi</h3>
-                            <p>(Açmak için fareyle üzerine gel veya dokun)</p>
-                        </div>
-                    </div>
-                    <!-- Kolyenin Açılan İç Kısmı -->
-                    <div class="locket-interior">
-                        <h4 class="locket-interior-title">Sevgili Öğrencilerimin Özel Linki</h4>
-                        <p class="locket-interior-desc">Aşağıdaki sabit bağlantıyı kopyalayıp öğrencilerinle veya sınıf arkadaşlarınla paylaşabilirsin:</p>
-                        <div class="locket-link-row">
-                            <input type="text" id="studentPermanentLinkInput" class="locket-white-box" readonly value="">
-                            <button id="copyStudentLinkBtn" class="locket-copy-btn" type="button">📋 Kopyala</button>
-                        </div>
-                        <div class="locket-class-selector-row">
-                            <label for="locketClassSelect">Paylaşılacak Sınıf Bağlantısı:</label>
-                            <select id="locketClassSelect" class="sketch-select-small">
-                                <option value="A">Genel / 1. Grup Bağlantısı</option>
-                                <option value="B">2. Grup Bağlantısı</option>
-                                <option value="C">3. Grup Bağlantısı</option>
-                            </select>
-                        </div>
-                        <span id="copyFeedbackMsg" class="copy-feedback-msg"></span>
-                    </div>
-                </div>
-            </div>
-
-            <!-- ANA SAYFA 3'LÜ ETKİLEŞİM ARAÇLARI: SARI POST-IT, CRAYON TIMER, ŞANSLI KALEM -->
-            <div class="home-widgets-grid">
-
-                <!-- ARAÇ 1: SARI POST-IT (WORD & IDIOM OF THE DAY) -->
-                <article class="post-it-widget">
-                    <div class="masking-tape"></div>
-                    <div class="widget-top-row">
-                        <h3>📌 Word & Idiom of the Day</h3>
-                        <button id="refreshWordOfDayBtn" class="mini-sketch-btn" title="Yeni Kelime Getir">🔄 Yenile</button>
-                    </div>
-                    <div class="daily-word-box">
-                        <span class="badge-tag">GÜNÜN KELİMESİ</span>
-                        <h4 id="dailyWordTitle">Resilient</h4>
-                        <p id="dailyWordMeaning" class="turkish-meaning">🇹🇷 Dirençli, çabuk toparlanan, güçlü.</p>
-                        <p id="dailyWordExample" class="english-example">"Teachers and students are remarkably resilient."</p>
-                    </div>
-                    <hr class="crayon-divider">
-                    <div class="daily-idiom-box">
-                        <span class="badge-tag idiom-tag">GÜNÜN DEYİMİ (IDIOM)</span>
-                        <h4 id="dailyIdiomTitle">Pass with flying colours</h4>
-                        <p id="dailyIdiomMeaning" class="turkish-meaning">🇹🇷 Bir sınavı veya görevi çok yüksek başarıyla geçmek.</p>
-                    </div>
-                </article>
-
-                <!-- ARAÇ 2: CRAYON TIMER (BOYA KALEMİ KRONOMETRESİ - OKUL ZİLLİ) -->
-                <article class="notebook-card-widget timer-widget">
-                    <div class="widget-top-row">
-                        <h3>⏱️ Crayon Timer (Ders Sayacı)</h3>
-                        <span class="bell-badge">🔔 Zilli</span>
-                    </div>
-                    <p class="widget-helper-text">Etkinlik süresini seç ve başlat; süre bittiğinde okul zili çalar!</p>
-                    
-                    <div class="timer-preset-buttons">
-                        <button class="timer-preset-btn" data-seconds="60">1 Dakika</button>
-                        <button class="timer-preset-btn active-preset" data-seconds="180">3 Dakika</button>
-                        <button class="timer-preset-btn" data-seconds="300">5 Dakika</button>
-                    </div>
-
-                    <div class="timer-display-frame">
-                        <span id="timerMinutes">03</span>:<span id="timerSeconds">00</span>
-                    </div>
-
-                    <div class="crayon-progress-track">
-                        <div id="timerProgressBar" class="crayon-progress-fill"></div>
-                    </div>
-
-                    <div class="timer-action-buttons">
-                        <button id="timerStartPauseBtn" class="sketch-btn primary-orange-btn">▶️ Başlat</button>
-                        <button id="timerResetBtn" class="sketch-btn secondary-yellow-btn">⏹️ Sıfırla</button>
-                    </div>
-                </article>
-
-                <!-- ARAÇ 3: LUCKY PENCIL (ŞANSLI KALEM - SINIFLARA GÖRE ÖĞRENCİ VE SORU SEÇİCİ) -->
-                <article class="notebook-card-widget lucky-pencil-widget">
-                    <div class="widget-top-row">
-                        <h3>✏️ Lucky Pencil (Şanslı Kalem)</h3>
-                        <!-- Sadece Beyza'da Görünen Sınıf Sekmeleri (A, B, C, D) -->
-                        <div id="teacherClassTabs" class="teacher-class-tabs teacher-only-element hidden">
-                            <button class="class-tab-btn active-class-tab" data-class="A">Sınıf A</button>
-                            <button class="class-tab-btn" data-class="B">Sınıf B</button>
-                            <button class="class-tab-btn" data-class="C">Sınıf C</button>
-                        </div>
-                    </div>
-
-                    <p class="widget-helper-text">Okul numaranı ve adını bir kez kaydet; Şanslı Kalem dönsün, sıradaki öğrenciyi ve soruyu seçsin!</p>
-
-                    <!-- Öğrenci / Numara Ekleme Formu -->
-                    <form id="luckyStudentForm" class="lucky-student-form">
-                        <input type="number" id="studentSchoolNoInput" class="sketch-input no-input" placeholder="Okul No (Örn: 416)" required>
-                        <input type="text" id="studentNameForLuckyInput" class="sketch-input name-input" placeholder="Ad veya Kullanıcı Adı" required>
-                        <button type="submit" class="sketch-btn add-student-btn">➕ Kaydet</button>
-                    </form>
-
-                    <!-- Dönen Boya Kalemi Sahnesi -->
-                    <div class="spinning-pencil-arena">
-                        <div id="spinningPencilGraphic" class="spinning-pencil-graphic">🖍️</div>
-                        <div id="luckyWinnerBox" class="lucky-winner-box">
-                            <span id="luckySelectedStudent" class="lucky-student-name">Kalemi Çevirmeye Hazır!</span>
-                            <p id="luckySelectedQuestion" class="lucky-question-text">Soru ve öğrenci seçimi için aşağıdaki butona bas.</p>
-                        </div>
-                    </div>
-
-                    <div class="lucky-controls-row">
-                        <button id="spinLuckyPencilBtn" class="sketch-btn primary-orange-btn full-width-btn">
-                            🎡 Şanslı Kalemi Çevir (Öğrenci & Soru Seç)
-                        </button>
-                    </div>
-
-                    <!-- Kayıtlı Sınıf Listesi (Öğrenciler sadece kendi sınıfını görür) -->
-                    <div class="class-roster-wrapper">
-                        <div class="roster-header">
-                            <span id="rosterTitleText">📋 Sınıf Listesi (<span id="rosterCount">0</span> Öğrenci)</span>
-                            <button id="clearRosterBtn" class="text-danger-btn teacher-only-element hidden" type="button">Listeyi Temizle</button>
-                        </div>
-                        <ul id="classRosterList" class="class-roster-chips"></ul>
-                    </div>
-                </article>
-
-            </div>
-        </section>
-
-        <!-- ==========================================
-             2. SAYFA: İNGİLİZCE-TÜRKÇE SÖZLÜK VE GRAMER REHBERİ
-             ========================================== -->
-        <section id="view-dictionary" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>📖 İngilizce - Türkçe Hızlı Sözlük & Gramer Stüdyosu</h2>
-                <p>Kelime anlamlarını, telaffuz ipuçlarını ve derslerde en çok kullanılan gramer kalıplarını anında incele.</p>
-            </div>
-
-            <div class="dictionary-search-bar">
-                <input type="text" id="dictionarySearchInput" class="sketch-input large-search-input" placeholder="İngilizce veya Türkçe bir kelime yazın (Örn: accomplish, diligent, serendipity, başarmak)...">
-                <button id="dictionarySearchBtn" class="sketch-btn primary-orange-btn">🔍 Ara</button>
-            </div>
-
-            <!-- Canlı Sözlük Sonuç Alanı -->
-            <div id="dictionaryResultsGrid" class="dictionary-results-grid"></div>
-
-            <!-- Hızlı Gramer Başucu Kartları -->
-            <div class="grammar-reference-section">
-                <h3 class="sub-crayon-title">🖍️ Hızlı Gramer & Tense Özeti</h3>
-                <div id="grammarCardsContainer" class="grammar-cards-grid"></div>
-            </div>
-        </section>
-
-        <!-- ==========================================
-             3. SAYFA: ÖZEL NOT DEFTERİ (%100 CİHAZ HAFIZASINA KAYITLI)
-             ========================================== -->
-        <section id="view-notebook" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>📝 Kişisel Çizgili Not Defterim</h2>
-                <p>🔒 <strong>%100 Gizli ve Kişiye Özel:</strong> Buraya yazdığın notlar sadece senin telefonunun/bilgisayarının hafızasına kaydedilir. Başka hiç kimse göremez.</p>
-            </div>
-
-            <div class="personal-notebook-wrapper">
-                <div class="notebook-toolbar">
-                    <input type="text" id="noteTitleInput" class="sketch-input note-title-field" placeholder="Not Başlığı (Örn: Pazartesi Ders Planı / Kelime Listem)...">
-                    <div class="notebook-toolbar-btns">
-                        <span id="noteSaveStatus" class="save-status-pill">✅ Otomatik Kaydedildi</span>
-                        <button id="saveNoteManualBtn" class="sketch-btn primary-orange-btn">💾 Notu Listeye Ekle</button>
-                        <button id="clearCurrentNoteBtn" class="sketch-btn secondary-yellow-btn">🧹 Sayfayı Temizle</button>
-                    </div>
-                </div>
-
-                <!-- Çizgili Defter Yaprağı Yazı Alanı -->
-                <div class="lined-paper-sheet">
-                    <div class="paper-red-margin"></div>
-                    <textarea id="personalNotebookTextarea" class="lined-textarea" placeholder="Sevgili not defterim, bugün aklımda şunlar var... (Yazdığın her harf anında cihazına kaydedilir)"></textarea>
-                </div>
-
-                <!-- Kaydedilmiş Not Yaprakları Arşivi -->
-                <div class="saved-notes-archive">
-                    <h3>🗂️ Cihazımdaki Kayıtlı Not Yaprakları</h3>
-                    <div id="savedNotesList" class="saved-notes-grid"></div>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================
-             4. SAYFA: CLASSROOM GAMES (QUIZ, WORD FINDER, TRUE/FALSE, SENTENCE BUILDER)
-             ========================================== -->
-        <section id="view-games" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>🎮 Classroom Games Arena</h2>
-                <p>Oyununu seç, skorunu topla! Aynı kullanıcı adıyla tekrar girdiğinde puanların kaldığı yerden devam eder.</p>
-            </div>
-
-            <!-- Oyun Seçim Sekmeleri -->
-            <div class="game-selector-tabs">
-                <button class="game-tab-pill active-game-tab" data-gametype="quiz">⚡ Quiz Arena</button>
-                <button class="game-tab-pill" data-gametype="wordfinder">🔤 Word Finder</button>
-                <button class="game-tab-pill" data-gametype="truefalse">✅ True or False</button>
-                <button class="game-tab-pill" data-gametype="sentence">🧩 Sentence Builder</button>
-            </div>
-
-            <!-- Oyun Üst Bilgi Çubuğu (Oyuncu Adı, Skor, Oda/Başlatma Durumu) -->
-            <div class="game-status-bar">
-                <div class="player-badge-box">
-                    <span>👤 Oyuncu: <strong id="activeGamePlayerName">Giriş Yapılmadı</strong></span>
-                    <button id="changePlayerBtn" class="mini-sketch-btn">Kullanıcı Değiştir</button>
-                </div>
-                <div class="score-badge-box">
-                    <span>🏆 Toplam Skor: <strong id="activeGameTotalScore">0</strong> Puan</span>
-                </div>
-                <div class="host-status-box">
-                    <span id="gameHostPermissionBadge" class="host-permission-pill">Yönetici: Teacher Beyza</span>
-                    <button id="startNewGameRoundBtn" class="sketch-btn primary-orange-btn">🚀 Yeni Oyun Başlat</button>
-                </div>
-            </div>
-
-            <!-- Aktif Oyun Sahnesi -->
-            <div id="gameArenaStage" class="game-arena-stage">
-                <div id="gameQuestionHeader" class="game-question-header">
-                    <span id="gameCategoryBadge" class="badge-tag">QUIZ ARENA</span>
-                    <span id="gameQuestionCounter" class="question-counter">Soru 1 / 10</span>
-                </div>
-
-                <h3 id="gamePromptText" class="game-prompt-text">Oyun başlamak için hazır!</h3>
-
-                <!-- Dinamik Oyun İçeriği (Şıklar / Harfler / Kelime Blokları Buraya Gelir) -->
-                <div id="gameInteractiveZone" class="game-interactive-zone"></div>
-
-                <div id="gameFeedbackBanner" class="game-feedback-banner hidden"></div>
-
-                <div class="game-footer-controls">
-                    <button id="nextGameQuestionBtn" class="sketch-btn primary-orange-btn hidden">Sonraki Soru ➡️</button>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================
-             5. SAYFA: PRATİK İNGİLİZCE & DERS İPUÇLARI
-             ========================================== -->
-        <section id="view-tips" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>💡 Pratik İngilizce & Ders İpuçları</h2>
-                <p>Kas hafızasını tazeleyen kısa gramer tüyoları, sık karıştırılan kelimeler ve sınıf içi hızlı hatırlatmalar.</p>
-            </div>
-
-            <div class="tips-filter-bar">
-                <button class="tip-filter-btn active-filter" data-tipcat="all">Tümü</button>
-                <button class="tip-filter-btn" data-tipcat="confused">Sık Karıştırılan Kelimeler</button>
-                <button class="tip-filter-btn" data-tipcat="classroom">Sınıf İçi Kalıplar</button>
-                <button class="tip-filter-btn" data-tipcat="shortcuts">Hızlı Gramer Tüyoları</button>
-            </div>
-
-            <div id="practicalTipsGrid" class="practical-tips-grid"></div>
-        </section>
-
-        <!-- ==========================================
-             6. SAYFA: GÜNLÜK MOTİVASYON KÖŞESİ (SADECE BEYZA'YA ÖZEL - ÖĞRENCİLERE GİZLİ)
-             ========================================== -->
-        <section id="view-motivation" class="studio-view teacher-only-element hidden">
-            <div class="section-paper-header motivation-special-header">
-                <h2>🧡 Beyza Hoca İçin Günlük Motivasyon ve Moral Köşesi</h2>
-                <p>🔒 <em>Bu özel bölüm sadece senin öğretmen girişinle görünür; öğrenci bağlantısında kesinlikle yer almaz.</em></p>
-            </div>
-
-            <div class="featured-motivation-spotlight">
-                <span class="spotlight-pin">📌 Günün Özel Notu</span>
-                <blockquote id="featuredMotivationQuote" class="motivation-quote-text"></blockquote>
-                <button id="randomMotivationBtn" class="sketch-btn primary-orange-btn">✨ Bana Yeni Bir Moral Notu Aç</button>
-            </div>
-
-            <div id="motivationCardsContainer" class="motivation-cards-grid"></div>
-        </section>
-
-        <!-- ==========================================
-             7. SAYFA: GELECEK ATÖLYE MODÜLLERİ (GENİŞLEMEYE AÇIK ALTYAPI)
-             ========================================== -->
-        <section id="view-future" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>🚀 Gelecek Atölye Modülleri</h2>
-                <p>Teacher Beyza's Creative Studio modüler çekirdeği; yeni eklenecek eğitim araçları ve özelleştirmeler için hazır!</p>
-            </div>
-
-            <div class="future-modules-grid">
-                <div class="notebook-card-widget future-card">
-                    <span class="badge-tag">YAKINDA</span>
-                    <h3>🎨 Profil & Avatar Özelleştirme Stüdyosu</h3>
-                    <p>Öğretmen ve öğrenci profilleri için özel çerçeveler, rozetler ve çizim avatarlar seçebilme modülü.</p>
-                </div>
-                <div class="notebook-card-widget future-card">
-                    <span class="badge-tag">YAKINDA</span>
-                    <h3>🎧 Dinleme & Telaffuz (Listening) Laboratuvarı</h3>
-                    <p>Kelimelerin İngiliz ve Amerikan telaffuzlarını sesli dinleme ve tekrar etme egzersizleri.</p>
-                </div>
-                <div class="notebook-card-widget future-card">
-                    <span class="badge-tag">YAKINDA</span>
-                    <h3>📄 Çalışma Kağıdı (Worksheet) Oluşturucu</h3>
-                    <p>Seçilen kelimelerle tek tıkla yazdırılabilir PDF sınav ve bulmaca kağıdı üretme aracı.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- ==========================================
-             8. SAYFA: HAKKINDA & GELİŞTİRİCİ İMZASI (EN ALTTA)
-             ========================================== -->
-        <section id="view-about" class="studio-view hidden">
-            <div class="section-paper-header">
-                <h2>📌 Bu Web Sitesi Hakkında & Geliştirici</h2>
-                <p>Teacher Beyza's Creative Studio projesinin hikayesi ve teknik mimarisi.</p>
-            </div>
-
-            <div class="about-content-layout">
-                <article class="notebook-card-widget about-project-card">
-                    <h3>🏫 Teacher Beyza's Creative Studio Nedir?</h3>
-                    <p>
-                        Bu dijital sınıf stüdyosu, İngilizce derslerini klasik yöntemlerin ötesine taşıyarak not defteri samimiyeti ve boya kalemi enerjisiyle birleştirmek için özel olarak tasarlanmıştır.
-                    </p>
-                    <p>
-                        Öğretmen kontrolündeki interaktif oyunlar, her öğrencinin kendi cihaz hafızasında güvenle saklanan kişisel not defteri, sınıflara özel Şanslı Kalem seçici ve hızlı sözlük araçlarıyla hem sınıf içinde hem de bireysel çalışmada yaşayan bir eğitim merkezidir.
-                    </p>
-                </article>
-
-                <article class="notebook-card-widget about-developer-card">
-                    <div class="dev-badge">💻 GELİŞTİRİCİ & TASARIM MİMARI</div>
-                    <h3>Harun</h3>
-                    <p>
-                        Bu platformun tüm konsept kurgusu, kullanıcı deneyimi, modüler yazılım altyapısı ve interaktif sınıf araçları <strong>Harun</strong> tarafından, Beyza Hoca'nın öğretmenlik yolculuğuna ilham ve pratiklik katmak amacıyla sıfırdan geliştirilmiştir.
-                    </p>
-                    <div class="dev-signature-footer">
-                        <span>🧡 Sevgi, samimiyet ve temiz kodla inşa edildi.</span>
-                    </div>
-                </article>
-            </div>
-        </section>
-
-    </main>
-
-    <!-- ==========================================
-         MODAL 1: ÖĞRETMEN GİRİŞ EKRANI (BEYZA'NIN ÖZEL GİRİŞİ)
-         ========================================== -->
-    <div id="teacherLoginModal" class="studio-modal-overlay hidden" role="dialog" aria-modal="true">
-        <div class="studio-modal-card">
-            <button id="closeTeacherModalBtn" class="modal-close-x" aria-label="Kapat">✖</button>
-            <div class="modal-crayon-header">
-                <span class="modal-icon">👩‍🏫</span>
-                <h3>Öğretmen Girişi</h3>
-                <p>Teacher Beyza's Creative Studio yönetici araçlarına ve özel bölümlere erişmek için giriş yapın.</p>
-            </div>
-            <form id="teacherLoginForm" class="modal-form">
-                <label for="teacherUsernameInput">Kullanıcı Adı</label>
-                <input type="text" id="teacherUsernameInput" class="sketch-input" placeholder="Kullanıcı adınızı girin (Örn: beyza)" required>
-
-                <label for="teacherPasswordInput">Parola</label>
-                <input type="password" id="teacherPasswordInput" class="sketch-input" placeholder="Parolanızı girin" required>
-
-                <p id="teacherLoginError" class="modal-error-text hidden">Kullanıcı adı veya parola hatalı!</p>
-
-                <button type="submit" class="sketch-btn primary-orange-btn full-width-btn">🔓 Stüdyoya Giriş Yap</button>
-            </form>
-        </div>
+      </div>
     </div>
 
-    <!-- ==========================================
-         MODAL 2: ÖĞRENCİ ANLIK KULLANICI ADI & SKOR HAFIZASI EKRANI
-         ========================================== -->
-    <div id="studentEntryModal" class="studio-modal-overlay hidden" role="dialog" aria-modal="true">
-        <div class="studio-modal-card">
-            <button id="closeStudentModalBtn" class="modal-close-x" aria-label="Kapat">✖</button>
-            <div class="modal-crayon-header">
-                <span class="modal-icon">🎮</span>
-                <h3>Oyuncu Girişi</h3>
-                <p>Şifre gerekmez! Sadece kullanıcı adını yaz ve hemen oyuna katıl.</p>
-            </div>
+    <div class="utility-right">
+      <!-- Öğretmen Giriş Yaptığında Profilim & Çıkış Menüsü -->
+      <button id="teacherAuthBtn" class="mini-pill-btn teacher-pill">👩‍🏫 Öğretmen Girişi</button>
 
-            <!-- Cihaz Hafızasında Kayıtlı Oyuncu Varsa Gösterilen Kutu -->
-            <div id="savedPlayerPromptBox" class="saved-player-prompt hidden">
-                <p>🎉 Cihaz hafızasında kayıtlı profilin bulundu:</p>
-                <div class="saved-player-summary">
-                    <strong id="savedPlayerNameText">Öğrenci</strong>
-                    <span id="savedPlayerScoreText">1000 Puan</span>
-                </div>
-                <button id="continueSavedPlayerBtn" class="sketch-btn primary-orange-btn full-width-btn">
-                    ▶️ Aynı Kullanıcı Adı ve Skorla Devam Et
-                </button>
-                <hr class="crayon-divider">
-                <small>Farklı bir kullanıcı adı girersen skor sıfırlanır ve yeni öğrenci olarak başlarsın:</small>
-            </div>
-
-            <!-- Yeni Kullanıcı Adı ve Sabit Kız/Erkek Avatar Seçim Formu -->
-            <form id="studentNicknameForm" class="modal-form">
-                <label for="studentNicknameInput">Kullanıcı Adın (Nickname)</label>
-                <input type="text" id="studentNicknameInput" class="sketch-input" placeholder="Örn: Ceren_416 veya Bora" required>
-
-                <label>Sabit Profil Avatarı Seç:</label>
-                <div class="gender-avatar-selector">
-                    <label class="avatar-radio-card">
-                        <input type="radio" name="studentGender" value="girl" checked>
-                        <span class="avatar-preview-box">👧 Kız Öğrenci</span>
-                    </label>
-                    <label class="avatar-radio-card">
-                        <input type="radio" name="studentGender" value="boy">
-                        <span class="avatar-preview-box">👦 Erkek Öğrenci</span>
-                    </label>
-                </div>
-
-                <button type="submit" class="sketch-btn secondary-yellow-btn full-width-btn">🚀 Bu Kullanıcı Adıyla Başla</button>
-            </form>
+      <div id="teacherProfileDropdownWrap" class="profile-dropdown-wrap hidden">
+        <button class="student-avatar-trigger teacher-active-trigger" type="button">
+          <span id="topTeacherAvatar" class="av-circle">👩‍🏫</span>
+          <span id="topTeacherName">Teacher Beyza</span>
+          <span class="cls-tag">Yönetici</span>
+          <span style="font-size:0.75rem;margin-left:4px">▼</span>
+        </button>
+        <div class="profile-dropdown-menu right-aligned">
+          <button id="openTeacherProfileBtn" class="profile-menu-item profile-main-item" type="button">
+            👤 Profilim (Avatar & Özelleştir)
+          </button>
+          <button id="teacherLogoutBtn" class="profile-menu-item logout-item" type="button">
+            🔒 Öğretmen Çıkışı
+          </button>
         </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =========================================================
+       ORİJİNAL 3'LÜ RULO NOT KAĞIDI MENÜSÜ (ÜZERİNE GELİNCE AÇILIR)
+  ========================================================== -->
+  <nav class="scroll-nav-bar">
+
+    <!-- 1. RULO: STÜDYO & ARAÇLAR -->
+    <div class="scroll-dropdown">
+      <button class="scroll-capsule-btn active" type="button">
+        <span class="scroll-spiral"></span>
+        <span class="scroll-label">📜 1. Stüdyo & Araçlar</span>
+        <span class="scroll-spiral"></span>
+      </button>
+      <div class="unroll-paper-menu">
+        <button class="unroll-item active" data-page="page-home">🏠 Ana Sayfa & Sınıf Stüdyosu</button>
+        <button class="unroll-item" data-page="page-dictionary">📘 Sözlük & Gramer Stüdyosu</button>
+        <button class="unroll-item" data-page="page-listening">🎧 Dinleme & Telaffuz Laboratuvarı</button>
+        <button class="unroll-item" data-page="page-worksheet">📄 Çalışma Kağıdı (Worksheet) Oluşturucu</button>
+        <button class="unroll-item" data-page="page-notebook">📓 Kişisel Not Defteri & Paint Çizim</button>
+      </div>
     </div>
 
-    <!-- Ana JavaScript Dosyamız -->
-    <script src="script.js"></script>
+    <!-- 2. RULO: CLASSROOM GAMES -->
+    <div class="scroll-dropdown">
+      <button class="scroll-capsule-btn" type="button">
+        <span class="scroll-spiral"></span>
+        <span class="scroll-label">🎮 2. Classroom Games</span>
+        <span class="scroll-spiral"></span>
+      </button>
+      <div class="unroll-paper-menu">
+        <button class="unroll-item" data-page="page-games" data-gametype="quiz">⚡ Quiz Arena</button>
+        <button class="unroll-item" data-page="page-games" data-gametype="word">🔤 Word Finder</button>
+        <button class="unroll-item" data-page="page-games" data-gametype="tf">✅ True or False</button>
+        <button class="unroll-item" data-page="page-games" data-gametype="sentence">🧩 Sentence Builder</button>
+      </div>
+    </div>
+
+    <!-- 3. RULO: İLHAM & REHBER (ESKİ BÖLÜMLER + ŞİKAYET KUTUSU BURADA) -->
+    <div class="scroll-dropdown">
+      <button class="scroll-capsule-btn" type="button">
+        <span class="scroll-spiral"></span>
+        <span class="scroll-label">✨ 3. İlham & Rehber</span>
+        <span class="scroll-spiral"></span>
+      </button>
+      <div class="unroll-paper-menu">
+        <button class="unroll-item" data-page="page-tips">💡 Pratik İngilizce & Ders İpuçları</button>
+        <button class="unroll-item" data-page="page-complaints">📮 Web Sitesi Şikayet & Öneri Kutusu</button>
+        <button class="unroll-item" data-page="page-workshop">🚀 Gelecek Atölye Modülleri</button>
+        <button class="unroll-item" data-page="page-about">👩‍🏫 Hakkında & Geliştirici</button>
+      </div>
+    </div>
+
+  </nav>
+
+  <!-- =========================================================
+       ANA DEFTER SAYFASI (HER SEÇENEK KENDİ BAĞIMSIZ SAYFASINDA AÇILIR)
+  ========================================================== -->
+  <main class="notebook-sheet">
+    <div class="binder-holes" id="binderHoles"></div>
+
+    <!-- =======================================================
+         SAYFA 1: ANA SAYFA (ORİJİNAL GÖRÜNÜM)
+    ======================================================== -->
+    <section id="page-home" class="notebook-page active">
+
+      <!-- Sadece Beyza Hoca Giriş Yaptığında Açılan Öğretmen Kontrol Paneli -->
+      <div id="teacherControlBanner" class="teacher-orange-banner hidden">
+        <div class="teacher-banner-top">
+          <div class="teacher-crown-circle">👑</div>
+          <div>
+            <h3>Öğretmen Kontrol Paneli Aktif (Hoş Geldin Beyza Hoca!)</h3>
+            <p>Öğrencilerin kendi aralarında oyun kurma iznini buradan anlık değiştirebilirsin.</p>
+          </div>
+        </div>
+        <div class="teacher-banner-Whitepill-row">
+          <div class="teacher-white-pill">
+            <span>Öğrenciler Oyun Kurabilsin:</span>
+            <label class="switch-ui">
+              <input type="checkbox" id="studentHostToggle" />
+              <span class="switch-track"></span>
+            </label>
+            <span id="studentHostStatusBadge" class="yellow-status-tag">Sadece Öğretmen (Kapalı)</span>
+          </div>
+          <button id="openTeacherMessagesQuickBtn" class="mini-pill-btn white-pill">
+            📬 Gelen Öğrenci Şikayet & Mesajları (<span id="complaintCountBadge">0</span>)
+          </button>
+        </div>
+      </div>
+
+      <!-- Karşılama Kutusu -->
+      <div class="lined-box welcome-box">
+        <p class="welcome-kicker">✨ INTERACTIVE ENGLISH STUDIO & CLASSROOM HUB ✨</p>
+        <h1>Welcome to Teacher Beyza's Classroom!</h1>
+        <p class="welcome-sub">Boya kalemlerini hazırla, not defterini aç! Birlikte öğrenmek, yarışmak ve keşfetmek için sınıf stüdyomuza hoş geldin.</p>
+      </div>
+
+      <!-- Orijinal 3 Sütunlu Ana Sayfa Düzeni -->
+      <div class="home-three-columns">
+
+        <!-- SOL SÜTUN: ZARİF ANİMASYONLU KALPLİ KOLYE + SARI POST-IT -->
+        <div class="home-col-left">
+          <div class="locket-hanging-stage">
+            <div id="heartLocket" class="elegant-heart-locket">
+              <div class="chain-line left-chain"></div>
+              <div class="chain-line right-chain"></div>
+              <div class="chain-clasp">∞</div>
+
+              <div class="locket-body-wrap">
+                <div class="locket-cover">
+                  <svg viewBox="0 0 220 200" class="locket-svg">
+                    <defs>
+                      <linearGradient id="heartFillGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" stop-color="#ffffff" />
+                        <stop offset="55%" stop-color="#fff1f2" />
+                        <stop offset="100%" stop-color="#ffe4e6" />
+                      </linearGradient>
+                    </defs>
+                    <path d="M110 184 C110 184 20 126 20 65 C20 33 46 14 75 14 C94 14 105 25 110 36 C115 25 126 14 145 14 C174 14 200 33 200 65 C200 126 110 184 110 184 Z" fill="url(#heartFillGrad)" stroke="#1e293b" stroke-width="6"/>
+                    <path d="M110 174 C110 174 30 120 30 66 C30 39 51 23 75 23 C91 23 103 32 110 43 C117 32 129 23 145 23 C169 23 190 39 190 66 C190 120 110 174 110 174 Z" fill="none" stroke="#f97316" stroke-width="2.5" stroke-dasharray="5 3"/>
+                    <polygon points="110,56 123,72 110,88 97,72" fill="#38bdf8" stroke="#0284c7" stroke-width="2"/>
+                  </svg>
+                  <div class="locket-cover-text">
+                    <strong>Öğrenci Sınıf Kolyesi</strong>
+                    <span>(Açmak için fareyle üzerine gel veya dokun)</span>
+                  </div>
+                </div>
+
+                <div class="locket-inner-secret">
+                  <strong>💖 Sınıf Davet Linki</strong>
+                  <small>mortiwan.github.io/beyza-elt-hub</small>
+                  <button id="copyClassLinkBtn" class="mini-pill-btn orange-pill">🔗 Kopyala</button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="yellow-postit-card">
+            <div class="postit-header">
+              <h4>📌 Word & Idiom of the Day</h4>
+              <button id="refreshDailyWordBtn" class="postit-refresh-btn">🔄<br>Yenile</button>
+            </div>
+            <span class="tag-orange">GÜNÜN KELİMESİ</span>
+            <h3 id="dailyWordTitle">Enthusiasm</h3>
+            <p id="dailyWordTr" class="postit-tr">TR Coşku, heves, büyük istek.</p>
+            <p id="dailyWordEx" class="postit-ex">"Her enthusiasm makes every English lesson unforgettable."</p>
+
+            <span class="tag-dark">GÜNÜN DEYİMİ (IDIOM)</span>
+            <h4 id="dailyIdiomTitle">A piece of cake</h4>
+            <p id="dailyIdiomTr" class="postit-tr">TR Çocuk oyuncağı, yapılması çok kolay</p>
+          </div>
+        </div>
+
+        <!-- ORTA SÜTUN: CRAYON TIMER -->
+        <div class="home-col-center">
+          <div class="timer-roof-triangle"></div>
+          <div class="lined-widget-card timer-widget">
+            <div class="widget-head-row">
+              <h4>🎨 Crayon Timer (Ders Sayacı)</h4>
+              <span class="zilli-circle">🔔<br>Zilli</span>
+            </div>
+            <p class="widget-sub">Etkinlik süresini seç ve başlat; süre bittiğinde okul zili çalar!</p>
+
+            <div class="timer-min-buttons">
+              <button class="time-opt-btn" data-sec="60">1 Dakika</button>
+              <button class="time-opt-btn active" data-sec="180">3 Dakika</button>
+              <button class="time-opt-btn" data-sec="300">5 Dakika</button>
+            </div>
+
+            <div id="timerDisplay" class="timer-clock-box">03:00</div>
+
+            <div class="timer-controls">
+              <button id="timerStartBtn" class="mini-pill-btn orange-pill">▶️ Başlat</button>
+              <button id="timerResetBtn" class="mini-pill-btn outline-pill">Sıfırla</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- SAĞ SÜTUN: LUCKY PENCIL (ŞANSLI KALEM) -->
+        <div class="home-col-right">
+          <div class="lined-widget-card lucky-widget">
+            <div class="akilli-kalem-badge">🎯 AKILLI KALEM SINIF SEÇİCİ</div>
+
+            <div class="lucky-top-row">
+              <h4>✏️ Lucky Pencil (Şanslı Kalem)</h4>
+              <div id="teacherClassButtons" class="class-selector-group"></div>
+            </div>
+
+            <p class="widget-sub">Okul numaranı ve adını bir kez kaydet; Şanslı Kalem dönsün, sıradaki öğrenciyi ve soruyu seçsin!</p>
+
+            <div id="teacherClassManagerBox" class="teacher-class-bar hidden">
+              <span>👩‍🏫 Seçili Sınıf Öğrencilere Açık</span>
+              <button id="hideClassFromStudentsBtn" class="mini-pill-btn outline-pill">Listeyi Gizle</button>
+            </div>
+
+            <div id="activeClassStatusBox" class="class-status-strip">
+              🔒 Sınıf listesini sadece Beyza Hoca seçtiğinde görebilirsin.
+            </div>
+            <div id="luckyClassStudentsList" class="class-students-scroll hidden"></div>
+
+            <div class="pencil-dashed-arena">
+              <div id="spinningPencilIcon" class="green-pencil-icon">✏️</div>
+              <div id="luckyWinnerName" class="winner-line">🎯 No: 548 — Emir</div>
+              <div id="luckyWinnerQuestion" class="question-line">💬 Soru: "Tell us one thing you accomplished..."</div>
+              <button id="spinLuckyPencilBtn" class="mini-pill-btn orange-pill" style="margin-top:8px">🎡 Şanslı Kalemi Çevir</button>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 2: İNGİLİZCE - TÜRKÇE SÖZLÜK & GRAMER STÜDYOSU
+    ======================================================== -->
+    <section id="page-dictionary" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>📘 İngilizce - Türkçe Hızlı Sözlük & Gramer Stüdyosu</h2>
+        <p>Kelime anlamlarını, isim/fiil/sıfat alt türlerini, telaffuz ipuçlarını ve derslerde kullanılan tüm gramer kalıplarını anında incele.</p>
+      </div>
+
+      <div class="dict-search-row">
+        <input type="text" id="dictSearchInput" placeholder="İngilizce veya Türkçe bir kelime yazın (Örn: accomplish, diligent, kitap, light, başarmak)..." />
+        <button id="dictSearchBtn" class="dict-orange-search-btn">🔍<br>Ara</button>
+      </div>
+
+      <div id="dictLiveResultBox" class="lined-box live-dict-box hidden"></div>
+      <div id="dictFeaturedGrid" class="vocab-three-grid"></div>
+
+      <div class="grammar-section-wrap">
+        <h3 class="grammar-section-title">✏️ Hızlı Gramer & Tense Kütüphanesi (A1 - C1 Tüm Konular)</h3>
+        <div id="grammarCategoryTabs" class="grammar-filter-pills">
+          <button class="gram-tab-btn active" data-gcat="tenses">1. Tüm Tense'ler (Zamanlar)</button>
+          <button class="gram-tab-btn" data-gcat="modals">2. Modals (Can/Must/Should)</button>
+          <button class="gram-tab-btn" data-gcat="conditionals">3. If Clauses & Wish</button>
+          <button class="gram-tab-btn" data-gcat="passive">4. Passive & Reported Speech</button>
+          <button class="gram-tab-btn" data-gcat="clauses">5. Relative Clauses</button>
+          <button class="gram-tab-btn" data-gcat="conjunctions">6. Bağlaçlar & Edatlar</button>
+        </div>
+        <div id="grammarCardsContainer" class="vocab-three-grid"></div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 3: DİNLEME & TELAFFUZ (LISTENING) LABORATUVARI (KENDİ ÖZEL BÖLÜMÜ)
+    ======================================================== -->
+    <section id="page-listening" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>🎧 Dinleme & Telaffuz (Listening) Laboratuvarı</h2>
+        <p>Kelimelerin ve cümlelerin İngiliz (UK) ve Amerikan (US) aksanlarıyla telaffuzlarını dinle, hız ayarıyla pratik yap!</p>
+      </div>
+
+      <div class="lined-box">
+        <h3>🎙️ Serbest Cümle & Kelime Seslendirme Stüdyosu</h3>
+        <p style="font-size:0.88rem;color:#475569;margin:6px 0 12px">Aşağıdaki kutuya istediğin İngilizce kelimeyi veya cümleyi yazıp farklı aksan ve hızlarda dinleyebilirsin:</p>
+        <div class="form-stack">
+          <textarea id="listeningLabInput" rows="3">Welcome to Teacher Beyza's Creative Studio! Practice makes perfect.</textarea>
+          <div style="display:flex;gap:10px;flex-wrap:wrap">
+            <button id="speakUkBtn" class="mini-pill-btn orange-pill">🇬🇧 İngiliz Aksanı (UK) Dinle</button>
+            <button id="speakUsBtn" class="mini-pill-btn login-pill">🇺🇸 Amerikan Aksanı (US) Dinle</button>
+            <button id="speakSlowBtn" class="mini-pill-btn register-pill">🐢 Yavaşlatılmış (Tane Tane) Dinle</button>
+          </div>
+        </div>
+      </div>
+
+      <h3 style="margin:18px 0 12px">🗣️ Sınıf İçi Telaffuz Egzersiz Kartları</h3>
+      <div class="vocab-three-grid" id="pronunciationDrillGrid"></div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 4: ÇALIŞMA KAĞIDI (WORKSHEET) OLUŞTURUCU (KENDİ ÖZEL BÖLÜMÜ)
+    ======================================================== -->
+    <section id="page-worksheet" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>📄 Çalışma Kağıdı (Worksheet) Oluşturucu</h2>
+        <p>Sınıf seviyesini ve çalışma konusunu seçerek tek tıkla yazdırılabilir PDF çalışma ve test kağıdı oluştur!</p>
+      </div>
+
+      <div class="lined-box">
+        <div class="form-stack">
+          <label>1. Çalışma Kağıdı Başlığı:</label>
+          <input type="text" id="worksheetCustomTitle" value="Teacher Beyza's English Practice Worksheet" />
+
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+            <div>
+              <label>2. Okul Kademesi & Sınıf Seviyesi:</label>
+              <select id="worksheetLevelSelect">
+                <option value="Ortaokul (5-8. Sınıf)">Ortaokul (5, 6, 7, 8. Sınıf)</option>
+                <option value="Lise (9-12. Sınıf)" selected>Lise (9, 10, 11, 12. Sınıf)</option>
+                <option value="Üniversite (Akademik A1-C1)">Üniversite (Hazırlık / Akademik)</option>
+              </select>
+            </div>
+            <div>
+              <label>3. Çalışma Kağıdı İçerik Türü:</label>
+              <select id="worksheetTypeSelect">
+                <option value="vocab">Kelime Eşleştirme & Anlam Tablosu</option>
+                <option value="grammar">Gramer Formülleri & Boşluk Doldurma</option>
+                <option value="mixed" selected>Karma Sınav Kağıdı (Kelime + Gramer + Test)</option>
+              </select>
+            </div>
+          </div>
+
+          <div style="display:flex;gap:10px;margin-top:6px">
+            <button id="previewWorksheetBtn" class="mini-pill-btn login-pill">👁️ Önizlemeyi Güncelle</button>
+            <button id="generateWorksheetBtn" class="mini-pill-btn orange-pill">🖨️ PDF Olarak Yazdır / Kaydet</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Canlı Çalışma Kağıdı Önizleme Alanı -->
+      <div id="worksheetPreviewBox" class="lined-box"></div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 5: KİŞİSEL NOT DEFTERİ ↔ PAINT ÇİZİM
+    ======================================================== -->
+    <section id="page-notebook" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <div class="flex-between-wrap">
+          <div>
+            <h2>📓 Kişisel Not Defteri & Paint Çizim Stüdyosu</h2>
+            <p>Şalter kapalıyken yazılı notlarını tut, şalteri açtığında renkli kalemlerle çizim yap! İkisi de ayrı ayrı cihaz hafızana kaydedilir.</p>
+          </div>
+          <div class="notebook-toggle-pill">
+            <span id="noteModeLabelText" class="active-lbl">📝 Notlar (Kapalı)</span>
+            <label class="switch-ui">
+              <input type="checkbox" id="notebookPaintToggle" />
+              <span class="switch-track"></span>
+            </label>
+            <span id="paintModeLabelText">🎨 Paint Çizim (Açık)</span>
+          </div>
+        </div>
+      </div>
+
+      <div id="writtenNotesPanel" class="lined-box">
+        <textarea id="studentNotesTextarea" placeholder="Ders notlarını, kelimeleri veya ödevlerini buraya yaz..."></textarea>
+        <div class="flex-between-wrap" style="margin-top:10px">
+          <span id="notesSaveStatus" class="save-ok-text">✅ Tarayıcı hafızasına otomatik kaydedildi.</span>
+          <button id="clearNotesBtn" class="mini-pill-btn outline-pill">Notları Temizle</button>
+        </div>
+      </div>
+
+      <div id="paintCanvasPanel" class="lined-box hidden">
+        <div class="paint-controls-bar">
+          <div id="paintColorSwatches" class="color-palette-row">
+            <button class="color-dot active" data-color="#1e293b" style="background:#1e293b"></button>
+            <button class="color-dot" data-color="#f97316" style="background:#f97316"></button>
+            <button class="color-dot" data-color="#ef4444" style="background:#ef4444"></button>
+            <button class="color-dot" data-color="#eab308" style="background:#eab308"></button>
+            <button class="color-dot" data-color="#22c55e" style="background:#22c55e"></button>
+            <button class="color-dot" data-color="#3b82f6" style="background:#3b82f6"></button>
+            <button class="color-dot" data-color="#a855f7" style="background:#a855f7"></button>
+            <button class="color-dot" data-color="#ec4899" style="background:#ec4899"></button>
+          </div>
+          <div class="brush-tools-row">
+            <label>Kalem Kalınlığı: <input type="range" id="paintBrushSize" min="2" max="22" value="4" /></label>
+            <button id="paintEraserBtn" class="mini-pill-btn outline-pill">🧽 Silgi</button>
+            <button id="paintClearBtn" class="mini-pill-btn danger-pill">🗑️ Temizle</button>
+          </div>
+        </div>
+        <div class="paint-canvas-frame">
+          <canvas id="studioPaintCanvas" width="860" height="380"></canvas>
+        </div>
+        <p id="paintSaveStatus" class="save-ok-text" style="margin-top:8px">🎨 Çizimin otomatik olarak cihaz belleğine kaydedildi.</p>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 6: CLASSROOM GAMES ARENA
+    ======================================================== -->
+    <section id="page-games" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>🎮 Classroom Games Arena</h2>
+        <p>Oyununu seç, skorunu topla! Ortak oturumda arkadaşlarınla yarış; zorluk kademesini, Round sayısını veya Hedef Skoru belirle.</p>
+      </div>
+
+      <div id="gameTypeSelectorRow" class="games-pill-nav">
+        <button class="game-select-pill active" data-game="quiz">⚡ Quiz Arena</button>
+        <button class="game-select-pill" data-game="word">🔤 Word Finder</button>
+        <button class="game-select-pill" data-game="tf">✅ True or False</button>
+        <button class="game-select-pill" data-game="sentence">🧩 Sentence Builder</button>
+      </div>
+
+      <div class="lined-box game-status-bar">
+        <div class="game-bar-left">
+          <span>👤 Oyuncu: <strong id="arenaPlayerName">Misafir Öğrenci</strong></span>
+          <button id="changeUserInArenaBtn" class="mini-pill-btn outline-pill">Kullanıcı Değiştir</button>
+          <span>🏆 Bu Maçtaki Skor: <strong id="arenaCurrentMatchScore">0</strong> Puan</span>
+        </div>
+        <div class="game-bar-right">
+          <span id="arenaHostPermissionLabel" class="yellow-host-pill">👑 Yönetici: Sadece Teacher Beyza</span>
+          <button id="openGameSetupModalBtn" class="big-orange-action-btn">🚀 Yeni Oyun Başlat</button>
+          <button id="joinLiveSessionBtn" class="mini-pill-btn register-pill hidden">🤝 Oturuma Katıl</button>
+        </div>
+      </div>
+
+      <div id="liveRoomBanner" class="live-session-strip">
+        <span id="liveRoomStatusText">📡 Ortak canlı oyun durumu: Hazır</span>
+        <span id="liveRoomParticipants">Katılımcılar: -</span>
+      </div>
+
+      <div id="gameLockedOverlay" class="lined-box locked-arena-box hidden">
+        <h3>🔒 Oyun Kurma Şu An Sadece Teacher Beyza'ya Özel!</h3>
+        <p>Öğretmen panelindeki oyun kurma tuşu şu an kapalı olduğu için oyunlara tek başına erişemezsin. <strong>Teacher Beyza</strong> ortak bir oyun kurduğunda bu ekran otomatik açılacak ve sınıfla birlikte oynayacaksın!</p>
+      </div>
+
+      <div id="activeGameStageCard" class="lined-box question-arena-card">
+        <div class="arena-card-top">
+          <span id="stageGameBadge" class="tag-orange">⚡ QUIZ ARENA</span>
+          <span id="stageLevelBadge" class="meta-text">Lise - 9. Sınıf</span>
+          <span id="arenaRoundProgressBadge" class="meta-text">Soru 1 / 10</span>
+        </div>
+
+        <h3 id="gameQuestionTitle" class="arena-question-heading">Which word means 'working very hard and carefully'?</h3>
+        <div id="gameInteractiveArea" class="arena-options-wrap"></div>
+        <p id="gameInstantFeedback" class="arena-feedback-msg"></p>
+      </div>
+
+      <div id="matchEndPodiumCard" class="lined-box hidden">
+        <h3>🏆 Oyun Bitti! Maç Sonu Sıralaması (1. / 2. / 3.)</h3>
+        <div id="podiumWinnersList" class="vocab-three-grid" style="margin:14px 0"></div>
+        <button id="closePodiumBtn" class="mini-pill-btn orange-pill">Yeni Tura Geç</button>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 7: PRATİK İNGİLİZCE & DERS İPUÇLARI (GERİ GETİRİLDİ!)
+    ======================================================== -->
+    <section id="page-tips" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>💡 Pratik İngilizce & Ders İpuçları</h2>
+        <p>Teacher Beyza'nın İngilizceyi daha hızlı, kalıcı ve özgüvenli öğrenmen için hazırladığı altın çalışma rehberi!</p>
+      </div>
+
+      <div class="vocab-three-grid">
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #1 • KELİME HAFIZASI</span>
+          <h3>📌 Kelimeleri Cümle İçinde Öğren</h3>
+          <p class="postit-tr">Tek başına kelime ezberlemek yerine o kelimeyle kendi hayatından 1 kısa İngilizce cümle kur.</p>
+          <p class="postit-ex">Örn: "Diligent" kelimesini sadece "çalışkan" diye değil, "I am a diligent student" diyerek kodla!</p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #2 • KONUŞMA ÖZGÜVENİ</span>
+          <h3>🗣️ Hata Yapmaktan Asla Korkma</h3>
+          <p class="postit-tr">İngilizce konuşurken yapılan her hata, beyninin doğru kalıbı öğrenmesi için attığı en güçlü adımdır.</p>
+          <p class="postit-ex">Sınıfta Şanslı Kalem sana çıktığında kısa da olsa mutlaka kendi cümleni kur!</p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #3 • DİNLEME & TELAFFUZ</span>
+          <h3>🎧 Günde 5 Dakika Sesli Tekrar (Shadowing)</h3>
+          <p class="postit-tr">Dinleme Laboratuvarı'nda duyduğun cümleyi hemen ardından aynı vurguyla yüksek sesle tekrar et.</p>
+          <p class="postit-ex">Bu teknik hem kulağını hem de telaffuz kaslarını en hızlı geliştiren yöntemdir.</p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #4 • GRAMER MANTIĞI</span>
+          <h3>📐 Formülleri Görselleştir</h3>
+          <p class="postit-tr">Tense'leri ezberlemek yerine Kişisel Not Defteri'ndeki Paint çizim kısmında zaman çizelgesi çizerek çalış.</p>
+          <p class="postit-ex">Görsel hafıza gramer kurallarını unutmamanı sağlar.</p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #5 • GÜNLÜK RUTİN</span>
+          <h3>⏱️ Crayon Timer ile 15 Dakika Odak</h3>
+          <p class="postit-tr">Her akşam sadece 15 dakika telefon bildirimlerini kapatıp Günün Kelimesi ve Deyimi'ni tekrar et.</p>
+          <p class="postit-ex">"Small daily improvements lead to stunning results!"</p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-orange">İPUCU #6 • OYUNLAŞTIRMA</span>
+          <h3>🎮 Oyunlarla Kalıcı Tekrar</h3>
+          <p class="postit-tr">Classroom Games Arena'da çözdüğün her soru kelimeleri uzun süreli hafızana taşır.</p>
+          <p class="postit-ex">Hem eğlen hem de kendi gelişimini takip et!</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 8: WEB SİTESİ ŞİKAYET & ÖNERİ KUTUSU (3. İLHAM & REHBER ALTINDA!)
+    ======================================================== -->
+    <section id="page-complaints" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>📮 Web Sitesi Şikayet & Yenilik Öneri Bölümü</h2>
+        <p>Web sitesinde gördüğün sorunları veya gelmesini istediğin yeni özellikleri buradan doğrudan Beyza Hoca'ya iletebilirsin.</p>
+      </div>
+
+      <div class="lined-box">
+        <div class="form-stack">
+          <label>Bildirim Konusu:</label>
+          <select id="complaintTypeSelect">
+            <option value="Web Sitesi Sorunu / Şikayet">🐞 Web Sitesi Sorunu / Şikayet</option>
+            <option value="Gelmesini İstediğim Yenilik">💡 Gelmesini İstediğim Yenilik</option>
+            <option value="Oyun / Sözlük Önerisi">🎮 Oyun veya Kelime Önerisi</option>
+          </select>
+          <label>Mesajın:</label>
+          <textarea id="complaintMessageInput" rows="4" placeholder="Karşılaştığın sorunu veya eklenmesini istediğin yeniliği detaylıca buraya yaz..."></textarea>
+          <button id="sendComplaintBtn" class="mini-pill-btn orange-pill">🚀 Beyza Hoca'ya Gönder</button>
+          <p id="complaintFeedbackMsg" class="save-ok-text"></p>
+        </div>
+      </div>
+
+      <!-- SADECE BEYZA HOCA'NIN ARAYÜZÜNDE GÖZÜKEN GELEN MESAJLAR BÖLÜMÜ -->
+      <div id="teacherMessagesSection" class="lined-box hidden">
+        <div class="flex-between-wrap" style="margin-bottom:12px">
+          <h3>📬 Beyza Hoca'ya Özel Gelen Şikayet & Öneri Mesajları</h3>
+          <button id="clearAllComplaintsBtn" class="mini-pill-btn outline-pill">Tüm Mesajları Temizle</button>
+        </div>
+        <div id="teacherMessagesList" class="complaints-list-grid"></div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 9: GELECEK ATÖLYE MODÜLLERİ (TEMİZLENDİ - SADECE GELECEK PLANLAR VE SÜRÜM NOTU!)
+    ======================================================== -->
+    <section id="page-workshop" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>🚀 Gelecek Atölye Modülleri</h2>
+        <p>Teacher Beyza's Creative Studio modüler çekirdeği; yeni eğitim araçları, özelleştirmeler ve sürüm güncellemeleri için hazır!</p>
+      </div>
+
+      <!-- SADECE GELECEK GÜNCELLEMELER (AYNI ANDA ÇIKACAK 3 YENİ GÜNCELLEME) -->
+      <div class="vocab-three-grid" style="margin-bottom:24px">
+        <div class="workshop-lined-card">
+          <div class="workshop-bar">YAKINDA</div>
+          <h4>✨ Arayüz İyileştirmeleri & Yeni Arayüz</h4>
+          <p>Arayüz iyileştirmeleri yapılacak ve daha akıcı, modern bir yeni arayüz tasarımına geçiş sağlanacak.</p>
+        </div>
+
+        <div class="workshop-lined-card">
+          <div class="workshop-bar">YAKINDA</div>
+          <h4>🕹️ Yeni Oyunlar & Genişletilmiş Kelime Havuzu</h4>
+          <p>Var olan oyunların kelime havuzları genişletilecek; ayrıca <strong>Adam Asmaca (Hangman)</strong>, <strong>Kelime Zinciri (Word Chain)</strong> ve <strong>Hafıza Kartları</strong> oyunları eklenecek.</p>
+        </div>
+
+        <div class="workshop-lined-card">
+          <div class="workshop-bar">PLANLANANLAR ARASINDA</div>
+          <h4>📸 Öğrenciler İçin Paylaşım Duvarı</h4>
+          <p>Öğrencilerin fotoğraf, video ve kazandıkları rozetleri arkadaşlarıyla paylaşabileceği duvar (Kazanamayan öğrencilerin üzülmemesi adına değerlendirme aşamasında).</p>
+        </div>
+      </div>
+
+      <!-- GÜNCELLEME NOTLARI ; v1.1 -->
+      <div class="lined-box">
+        <h3>📋 Güncelleme Notları ; v1.1</h3>
+        <div class="patch-notes-two-cols">
+          <div class="patch-box">
+            <h4>📦 Önceki Sürümde (v1.0) Neler Vardı?</h4>
+            <ul>
+              <li>Temel rulo menülü defter arayüzü ve sabit 9 kelimelik başlangıç sözlüğü.</li>
+              <li>Sadece 6 kartlık kısa gramer özeti.</li>
+              <li>5 soruda biten kısa demo oyunlar ve tek kişilik oynanış.</li>
+              <li>Şifresiz misafir girişi ve sabit A/B/C sınıflı Şanslı Kalem.</li>
+              <li>Sadece yazılı metin alan Not Defteri ve sekmede standart dünya ikonu.</li>
+            </ul>
+          </div>
+          <div class="patch-box">
+            <h4>🚀 Yeni Sürümde (v1.1) Neler Geldi & Değişti?</h4>
+            <ul>
+              <li><strong>Şifreli & Sınıflı Öğrenci Hesapları:</strong> Sol üste yan yana <em>Oturum Aç</em> ve <em>Kayıt Ol</em> (Kullanıcı Adı, Şifre, Sınıf, Öğrenci No ve Kız/Erkek Avatar seçimi) eklendi.</li>
+              <li><strong>"Profilim" Menüsü, Kız/Erkek Avatar Stüdyosu & Duvar:</strong> Çıkış tuşunun hemen üstüne <em>Profilim</em> eklendi; isim değiştirme, kız/erkek özel avatarlar, istatistik/rozet gizleme şalteri, kayıt tarihi ve şifreli <em>Hesabımı Sil</em> getirildi.</li>
+              <li><strong>Yeni Bağımsız Bölümler:</strong> <em>Dinleme & Telaffuz Laboratuvarı</em> ve <em>Çalışma Kağıdı Oluşturucu</em> kendi özel sayfaları olarak Stüdyo & Araçlar menüsüne eklendi.</li>
+              <li><strong>Ortak Oyun Lobisi & Zorluk/Round Seçimi:</strong> Oyun kurma şalteri çalışır hale getirildi; Ortaokul/Lise/Üniversite zorluk seçimi, Round (5-20) ve Hedef Skor (500-1000 Puan) seçimi eklendi.</li>
+              <li><strong>Şanslı Kalem Sınıf Gizliliği & Öğrenci Silme:</strong> Sınıfları sadece Beyza Hoca görür; çıkış yapınca liste otomatik gizlenir. Beyza Hoca'ya onaylı öğrenci silme eklendi.</li>
+              <li><strong>Geniş Sözlük, Dev Gramer & Paint Çizim:</strong> Türkçe ↔ İngilizce çeviri, alt anlamlar, dev gramer kütüphanesi, Notlar ↔ Paint şalteri, Şikayet Kutusu, zarif kalpli kolye ve sekme ikonu olarak Beyza Hoca'nın avatarı eklendi.</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================
+         SAYFA 10: HAKKINDA & GELİŞTİRİCİ (GERİ GETİRİLDİ + BEYZA HOCA MOTİVASYON KÖŞESİ)
+    ======================================================== -->
+    <section id="page-about" class="notebook-page">
+      <div class="lined-box section-banner-box">
+        <h2>👩‍🏫 Hakkında & Geliştirici</h2>
+        <p>Teacher Beyza's Creative Studio'nun hikayesi, eğitim vizyonu ve geliştirici notları.</p>
+      </div>
+
+      <div class="patch-notes-two-cols" style="margin-bottom:18px">
+        <div class="vocab-lined-card">
+          <span class="tag-orange">EĞİTİM VİZYONU</span>
+          <h3>👩‍🏫 Teacher Beyza's Creative Studio</h3>
+          <p style="margin-top:8px;line-height:1.6">
+            İngilizce öğrenimini klasik ders kalıplarından çıkarıp; her öğrencinin merakla katıldığı, oyunlarla öğrendiği, kendi notlarını ve çizimlerini özgürce tutabildiği interaktif bir sınıf ekosistemine dönüştürmek için tasarlandı.
+          </p>
+        </div>
+
+        <div class="vocab-lined-card">
+          <span class="tag-dark">GELİŞTİRİCİ & TASARIM</span>
+          <h3>💻 Geliştirici: Harun</h3>
+          <p style="margin-top:8px;line-height:1.6">
+            Bu platform, Teacher Beyza'nın sınıf içi derslerini ve öğrencilerinin öğrenme yolculuğunu en keyifli hale getirmek amacıyla <strong>Harun</strong> tarafından özel ve modüler bir mimariyle geliştirilmiştir.
+          </p>
+        </div>
+      </div>
+
+      <!-- SADECE BEYZA HOCA GİRİŞ YAPTIĞINDA GÖRÜNEN ~Harun İMZALI ÖZEL MOTİVASYON KÖŞESİ -->
+      <div id="teacherSecretMotivationCard" class="lined-box">
+        <div class="flex-between-wrap" style="margin-bottom:12px">
+          <h3>💌 Beyza Hoca İçin Özel Motivasyon & Moral Köşesi</h3>
+          <button id="nextMotivationQuoteBtn" class="mini-pill-btn orange-pill">✨ Sıradaki Motivasyon Sözü</button>
+        </div>
+        <blockquote id="motivationQuoteText" class="quote-display-box"></blockquote>
+        <p id="motivationQuoteAuthor" class="quote-author-sign"></p>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- =========================================================
+       MODALLAR (OTURUM AÇ/KAYIT OL, PROFİLİM & AVATAR DUVARI, ÖĞRETMEN, OYUN KURULUMU)
+  ========================================================== -->
+
+  <!-- 1. ÖĞRENCİ OTURUM AÇ / KAYIT OL MODALI (KIZ / ERKEK AVATAR SEÇİMLİ) -->
+  <div id="studentAuthModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3 id="studentAuthModalTitle">🔑 Öğrenci Oturum Aç</h3>
+        <button class="close-x" data-close="studentAuthModal">✕</button>
+      </div>
+      <div class="modal-tab-switch">
+        <button id="switchToLoginTab" class="m-tab active">🔑 Oturum Aç</button>
+        <button id="switchToRegisterTab" class="m-tab">📝 Kayıt Ol</button>
+      </div>
+
+      <!-- Giriş -->
+      <div id="studentLoginForm" class="form-stack">
+        <label>Kullanıcı Adı:</label>
+        <input type="text" id="loginUsernameInput" placeholder="Kullanıcı adını gir..." />
+        <label>Şifre:</label>
+        <input type="password" id="loginPasswordInput" placeholder="Şifreni gir..." />
+        <p id="loginErrorMsg" class="err-text"></p>
+        <button id="submitStudentLoginBtn" class="mini-pill-btn orange-pill">🚀 Giriş Yap</button>
+      </div>
+
+      <!-- Kayıt -->
+      <div id="studentRegisterForm" class="form-stack hidden">
+        <label>Kullanıcı Adı:</label>
+        <input type="text" id="regUsernameInput" placeholder="Örn: zeynep_2b veya emir_548" />
+        <label>Şifre:</label>
+        <input type="password" id="regPasswordInput" placeholder="Şifre belirle..." />
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:8px">
+          <div>
+            <label>Bulunduğun Sınıf:</label>
+            <input type="text" id="regClassInput" placeholder="Örn: 2-B, 9-A" />
+          </div>
+          <div>
+            <label>Öğrenci Numaran:</label>
+            <input type="text" id="regSchoolNoInput" placeholder="Örn: 548" />
+          </div>
+        </div>
+
+        <label>Cinsiyetini Seç (Sana Özel Avatarlar Açılır):</label>
+        <div class="gender-switch-row">
+          <button type="button" id="regGenderGirlBtn" class="m-tab active">👧 Kız Avatarları</button>
+          <button type="button" id="regGenderBoyBtn" class="m-tab">👦 Erkek Avatarları</button>
+        </div>
+
+        <div id="regAvatarPicker" class="avatar-grid-picker"></div>
+
+        <p id="registerErrorMsg" class="err-text"></p>
+        <button id="submitStudentRegisterBtn" class="mini-pill-btn register-pill">✨ Kaydı Tamamla ve Başla</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. "PROFİLİM" EKRANI (İSİM DEĞİŞTİRME, KIZ/ERKEK AVATAR ÖZELLEŞTİRME, AVATAR DUVARI, ROZETLER & HESAP SİLME) -->
+  <div id="avatarWallModal" class="modal-overlay hidden">
+    <div class="modal-card wide-modal">
+      <div class="modal-header">
+        <h3>👤 Profilim — Avatar Özelleştirme & Başarım Duvarı</h3>
+        <button class="close-x" data-close="avatarWallModal">✕</button>
+      </div>
+
+      <!-- Üst Profil Kartı -->
+      <div class="wall-top-box">
+        <div id="wallAvatarCircle" class="wall-big-av">👧🏻</div>
+        <div style="flex:1">
+          <h4 id="wallUsernameTitle" style="font-size:1.3rem">Öğrenci</h4>
+          <p id="wallClassAndNoText" style="font-weight:700;color:#ea580c">Sınıf: - | Okul No: -</p>
+        </div>
+      </div>
+
+      <!-- Profilim İçinde 2 Sekme: 1. Avatar Duvarı & Başarımlar | 2. Profili & Avatarı Özelleştir -->
+      <div class="modal-tab-switch">
+        <button id="profTabWallBtn" class="m-tab active">🛡️ Avatar Duvarı, Rozetler & İstatistikler</button>
+        <button id="profTabCustomizeBtn" class="m-tab">🎨 Profili, İsmimi & Avatarı Özelleştir</button>
+      </div>
+
+      <!-- SEKME A: AVATAR DUVARI, İSTATİSTİKLER, ROZETLER & GİZLİLİK -->
+      <div id="profileWallPane">
+        <div class="privacy-box">
+          <label><input type="checkbox" id="toggleShowStats" checked /> 📊 Oyun İstatistiklerimi (Oynanan / Kazanılan / Kaybedilen / Skor) Sergile</label>
+          <label><input type="checkbox" id="toggleShowBadges" checked /> 🏅 Kazandığım Rozetleri Profilimde Sergile</label>
+        </div>
+
+        <div id="wallStatsSection" class="stats-four-grid">
+          <div class="stat-item"><strong id="wallTotalScore">0</strong><span>Toplam Skor</span></div>
+          <div class="stat-item"><strong id="wallGamesPlayed">0</strong><span>Oynanan Oyun</span></div>
+          <div class="stat-item"><strong id="wallGamesWon">0</strong><span>Kazanılan</span></div>
+          <div class="stat-item"><strong id="wallGamesLost">0</strong><span>Kaybedilen</span></div>
+        </div>
+        <p id="wallStatsHiddenNotice" class="hidden-info hidden">🔒 İstatistiklerin gizlilik tercihinle şu an gizleniyor.</p>
+
+        <h4 style="margin:10px 0 6px">🏅 Oyun Başarım Rozetleri (Skor Yaptıkça Kazanılır)</h4>
+        <div id="wallBadgesGrid" class="badges-row-grid"></div>
+        <p id="wallBadgesHiddenNotice" class="hidden-info hidden">🔒 Rozetlerin gizlilik tercihinle şu an gizleniyor.</p>
+
+        <div id="studentDangerFooter" class="wall-bottom-bar">
+          <span>📅 <strong>Kayıt Tarihi:</strong> <em id="wallRegistrationDate">-</em></span>
+          <button id="openDeleteAccountConfirmBtn" class="mini-pill-btn danger-pill">🗑️ Hesabımı Sil</button>
+        </div>
+
+        <div id="deleteAccountConfirmBox" class="delete-box hidden">
+          <p><strong>Hesabını kalıcı olarak silmek istediğine emin misin?</strong> Onaylamak için şifreni gir:</p>
+          <input type="password" id="deleteAccountPasswordInput" placeholder="Şifreni yaz..." />
+          <p id="deleteAccountErrorMsg" class="err-text"></p>
+          <div style="display:flex;gap:8px">
+            <button id="confirmDeleteStudentAccountBtn" class="mini-pill-btn danger-pill">Evet, Kalıcı Olarak Sil</button>
+            <button id="cancelDeleteStudentAccountBtn" class="mini-pill-btn outline-pill">Hayır, İptal Et</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- SEKME B: PROFİLİ, KULLANICI ADINI VE KIZ/ERKEK AVATARINI ÖZELLEŞTİR -->
+      <div id="profileCustomizePane" class="hidden">
+        <div class="form-stack">
+          <label>✏️ Kullanıcı Adı / Görünen İsim Değiştir:</label>
+          <div style="display:flex;gap:8px">
+            <input type="text" id="editProfileNameInput" placeholder="Yeni kullanıcı adını yaz..." />
+            <button id="saveProfileNameBtn" class="mini-pill-btn orange-pill">İsmi Kaydet</button>
+          </div>
+          <p id="editNameFeedbackMsg" class="save-ok-text"></p>
+
+          <label style="margin-top:8px">🚻 Avatar Kategorisi Seç (Kız / Erkek Özel Avatarlar):</label>
+          <div class="gender-switch-row">
+            <button type="button" id="wallGenderGirlBtn" class="m-tab active">👧 Kız Avatarları</button>
+            <button type="button" id="wallGenderBoyBtn" class="m-tab">👦 Erkek Avatarları</button>
+          </div>
+
+          <div id="wallAvatarPickerGrid" class="avatar-grid-picker"></div>
+
+          <label style="margin-top:8px">🖼️ Avatar Çerçeve Rengi Seç:</label>
+          <div id="wallFramePickerRow" class="frame-picker-row">
+            <button type="button" class="frame-btn" data-frame="#f97316" style="border-color:#f97316">Turuncu</button>
+            <button type="button" class="frame-btn" data-frame="#ec4899" style="border-color:#ec4899">Gül Pembe</button>
+            <button type="button" class="frame-btn" data-frame="#3b82f6" style="border-color:#3b82f6">Okyanus Mavi</button>
+            <button type="button" class="frame-btn" data-frame="#22c55e" style="border-color:#22c55e">Zümrüt Yeşil</button>
+            <button type="button" class="frame-btn" data-frame="#a855f7" style="border-color:#a855f7">Kraliyet Moru</button>
+            <button type="button" class="frame-btn" data-frame="#eab308" style="border-color:#eab308">Altın Sarısı</button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- 3. ÖĞRETMEN GİRİŞ MODALI -->
+  <div id="teacherLoginModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>👩‍🏫 Teacher Beyza Girişi</h3>
+        <button class="close-x" data-close="teacherLoginModal">✕</button>
+      </div>
+      <div class="form-stack">
+        <label>Öğretmen Şifresi:</label>
+        <input type="password" id="teacherPasswordInput" placeholder="Şifreyi girin (beyza2026)..." />
+        <p id="teacherLoginError" class="err-text"></p>
+        <button id="submitTeacherLoginBtn" class="mini-pill-btn orange-pill">🔓 Giriş Yap</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 4. OYUN KURULUM MODALI -->
+  <div id="gameSetupModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚙️ Oyun Kurulumu (Zorluk & Tur Seçimi)</h3>
+        <button class="close-x" data-close="gameSetupModal">✕</button>
+      </div>
+      <div class="form-stack">
+        <label>Oyun Seç:</label>
+        <select id="setupGameTypeSelect">
+          <option value="quiz">⚡ Quiz Arena</option>
+          <option value="word">🔤 Word Finder</option>
+          <option value="tf">✅ True or False</option>
+          <option value="sentence">🧩 Sentence Builder</option>
+        </select>
+        <label>Okul Kademesi & Sınıf Zorluğu:</label>
+        <select id="setupDifficultySelect">
+          <option value="Ortaokul (5-8. Sınıf)">Ortaokul (5, 6, 7, 8. Sınıf)</option>
+          <option value="Lise (9-12. Sınıf)" selected>Lise (9, 10, 11, 12. Sınıf)</option>
+          <option value="Üniversite (Hazırlık / Akademik)">Üniversite (Hazırlık / Akademik)</option>
+        </select>
+        <label>Round Sayısı veya Hedef Skor:</label>
+        <select id="setupEndRuleSelect">
+          <option value="round-5">5 Round</option>
+          <option value="round-10" selected>10 Round</option>
+          <option value="round-15">15 Round</option>
+          <option value="round-20">20 Round</option>
+          <option value="score-500">İlk 500 Puan Yapan Kazanır</option>
+          <option value="score-1000">İlk 1000 Puan Yapan Kazanır</option>
+          <option value="unlimited">Sınırsız Oyun</option>
+        </select>
+        <button id="launchConfiguredGameBtn" class="mini-pill-btn orange-pill">🚀 Oyunu Kur ve Başlat</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5. BEYZA HOCA ÖĞRENCİ SİLME ONAYI MODALI -->
+  <div id="teacherDeleteStudentModal" class="modal-overlay hidden">
+    <div class="modal-card">
+      <div class="modal-header">
+        <h3>⚠️ Öğrenci Silme Onayı</h3>
+        <button class="close-x" data-close="teacherDeleteStudentModal">✕</button>
+      </div>
+      <div class="form-stack">
+        <p id="teacherDeletePromptText" style="font-weight:800;font-size:1.05rem">Bu öğrenciyi silmek istiyor musunuz, emin misiniz hocam?</p>
+        <div style="display:flex;gap:10px;margin-top:8px">
+          <button id="teacherConfirmDeleteYesBtn" class="mini-pill-btn danger-pill">Evet</button>
+          <button id="teacherConfirmDeleteNoBtn" class="mini-pill-btn outline-pill">Hayır</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="script.js"></script>
 </body>
 </html>
