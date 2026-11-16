@@ -354,8 +354,10 @@ function injectRefinedLocketAndTimerStyles() {
       position: absolute;
       inset: 0;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
+      padding-bottom: 22px;
       z-index: 1;
     }
 
@@ -367,41 +369,54 @@ function injectRefinedLocketAndTimerStyles() {
       filter: drop-shadow(0 4px 6px rgba(30, 41, 59, 0.14));
     }
 
+    .heart-inner-link-title {
+      position: relative;
+      z-index: 2;
+      font-family: 'Fredoka', sans-serif;
+      font-size: 0.56rem;
+      font-weight: 800;
+      color: #ea580c;
+      text-align: center;
+      margin-bottom: 3px;
+      line-height: 1.15;
+      max-width: 112px;
+    }
+
     .heart-white-link-frame {
       position: relative;
       z-index: 2;
       background: #ffffff;
-      border: 2px solid #1e293b;
-      border-radius: 10px;
-      padding: 5px 7px;
-      width: 148px;
+      border: 1.8px solid #1e293b;
+      border-radius: 8px;
+      padding: 3px 5px;
+      width: 112px;
+      box-sizing: border-box;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 5px;
+      gap: 4px;
       box-shadow: 0 2px 0 #1e293b;
-      margin-top: -8px;
     }
 
     .heart-white-link-text {
       flex: 1;
       text-align: center;
-      font-size: 0.63rem;
+      font-size: 0.5rem;
       font-weight: 800;
+      line-height: 1.15;
       color: #1e293b;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
+      word-break: break-word;
+      overflow-wrap: anywhere;
     }
 
     .heart-inline-copy-btn {
       background: #f97316;
       color: #ffffff;
       border: 1.5px solid #1e293b;
-      border-radius: 7px;
-      padding: 3px 6px;
+      border-radius: 6px;
+      padding: 3px 4px;
       font-family: 'Fredoka', sans-serif;
-      font-size: 0.64rem;
+      font-size: 0.52rem;
       cursor: pointer;
       white-space: nowrap;
       flex-shrink: 0;
@@ -583,8 +598,10 @@ function renderRefinedDoubleDoorLocket() {
                   fill="none" stroke="#fb7185" stroke-width="1.5"/>
           </svg>
 
+          <div class="heart-inner-link-title">Sevgili Öğrencilerimin Linki;</div>
+
           <div class="heart-white-link-frame">
-            <span class="heart-white-link-text">mortiwan.github.io/beyza-elt-hub</span>
+            <span class="heart-white-link-text">github.io/<br>beyza-elt-hub</span>
             <button id="copyClassLinkBtn" type="button" class="heart-inline-copy-btn">Kopyala</button>
           </div>
         </div>
