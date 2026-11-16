@@ -1,5 +1,5 @@
 /* ==========================================================================
-   TEACHER BEYZA'S CREATIVE STUDIO - v1.1 (TEK PARÇA TAM SCRIPT.JS)
+   TEACHER BEYZA'S CREATIVE STUDIO - v1.1 (TÜM CİHAZLARA UYUMLU TAM SCRIPT.JS)
    ========================================================================== */
 
 const STORAGE_KEYS = {
@@ -287,18 +287,11 @@ function injectRefinedLocketAndTimerStyles() {
   const style = document.createElement('style');
   style.id = 'v11RefinedDynamicStyles';
   style.textContent = `
-    .utility-right {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    /* Sol Sütunda Welcome Kutusu ile Sarı Post-it Arasında Kalpli Kolyeye Özel Alan */
     .locket-hanging-stage {
       position: relative !important;
       width: 100% !important;
-      height: 190px !important;
-      margin: 4px auto 16px auto !important;
+      height: 184px !important;
+      margin: 4px auto 14px auto !important;
       display: flex !important;
       align-items: center !important;
       justify-content: center !important;
@@ -310,7 +303,7 @@ function injectRefinedLocketAndTimerStyles() {
     .refined-double-locket {
       position: relative !important;
       width: 184px !important;
-      height: 178px !important;
+      height: 176px !important;
       cursor: pointer;
       transform-origin: top center;
       animation: delicateSwing 4.5s ease-in-out infinite;
@@ -374,7 +367,6 @@ function injectRefinedLocketAndTimerStyles() {
       filter: drop-shadow(0 4px 6px rgba(30, 41, 59, 0.14));
     }
 
-    /* Kalbin Ortasındaki Beyaz Boş Çerçeve + Ortasında Link + Yanında Kopyala Tuşu */
     .heart-white-link-frame {
       position: relative;
       z-index: 2;
@@ -419,7 +411,6 @@ function injectRefinedLocketAndTimerStyles() {
       background: #ea580c;
     }
 
-    /* ÇİFT KAPAK: SOL VE SAĞ KANAT AYNI ANDA İKİ YANA AÇILIR */
     .heart-wing {
       position: absolute;
       inset: 0;
@@ -479,7 +470,6 @@ function injectRefinedLocketAndTimerStyles() {
       margin-top: 3px;
     }
 
-    /* CRAYON TIMER: SAĞDAN SOLA GİDEN TURUNCU-BEYAZ RENKLİ GERİ SAYIM ÇUBUĞU */
     .crayon-progress-wrapper {
       position: relative;
       width: 100%;
@@ -692,7 +682,7 @@ function renderAvatarPickerGrid(containerId, gender, selectedAvatar, onSelectCal
   });
 }
 
-/* 6. DEFTER DELİKLERİ VE RULO MENÜ SAYFA GEÇİŞİ */
+/* 6. DEFTER DELİKLERİ VE RULO MENÜ SAYFA GEÇİŞİ (MOBİLDE SEÇİNCE OTOMATİK KAPANIR) */
 function renderBinderHoles() {
   const container = document.getElementById('binderHoles');
   if (!container) return;
@@ -704,12 +694,20 @@ function renderBinderHoles() {
   }
 }
 
+function closeAllScrollMenus() {
+  document.querySelectorAll('.scroll-dropdown').forEach(d => d.classList.remove('menu-open'));
+  if (document.activeElement && document.activeElement.blur) {
+    document.activeElement.blur();
+  }
+}
+
 function openNotebookPage(pageId) {
   if (pageId === 'page-motivation' && !isTeacherLoggedIn()) {
     pageId = 'page-home';
   }
 
   playPaperFlipSound();
+  closeAllScrollMenus();
 
   document.querySelectorAll('.notebook-page').forEach(p => p.classList.remove('active'));
   const target = document.getElementById(pageId);
@@ -828,13 +826,13 @@ function setupMotivationAndSincereAboutPages() {
         <p>Bu özel sayfa öğrenci modunda gizlidir; sadece sen öğretmen girişi yaptığında senin için açılır. 🧡</p>
       </div>
 
-      <div class="lined-box" style="background:linear-gradient(135deg, #fff7ed 0%, #fef08a 100%);padding:28px;text-align:center">
+      <div class="lined-box" style="background:linear-gradient(135deg, #fff7ed 0%, #fef08a 100%);padding:20px;text-align:center">
         <span class="tag-orange" style="font-size:0.8rem;padding:5px 14px">✨ RASTGELE MOTİVASYON TABLOSU ✨</span>
-        <blockquote id="bigRandomQuoteText" style="font-size:1.22rem;font-weight:800;line-height:1.7;margin:18px auto;max-width:820px;color:#1e293b;background:#ffffff;padding:22px;border:3px solid #1e293b;border-radius:18px;box-shadow:0 5px 0 #1e293b">
+        <blockquote id="bigRandomQuoteText" style="font-size:1.12rem;font-weight:800;line-height:1.65;margin:14px auto;max-width:820px;color:#1e293b;background:#ffffff;padding:18px;border:3px solid #1e293b;border-radius:18px;box-shadow:0 5px 0 #1e293b">
           "${HARUN_QUOTES[0].text}"
         </blockquote>
-        <p id="bigRandomQuoteAuthor" style="font-size:1.15rem;font-weight:900;color:#ea580c;margin-bottom:16px">${HARUN_QUOTES[0].author}</p>
-        <button id="drawRandomMotivationBtn" class="big-orange-action-btn" type="button" style="font-size:1rem;padding:12px 26px">
+        <p id="bigRandomQuoteAuthor" style="font-size:1.1rem;font-weight:900;color:#ea580c;margin-bottom:14px">${HARUN_QUOTES[0].author}</p>
+        <button id="drawRandomMotivationBtn" class="big-orange-action-btn" type="button" style="font-size:0.95rem;padding:11px 22px">
           🎲 Rastgele Yeni Motivasyon Sözü Getir
         </button>
       </div>
@@ -868,18 +866,18 @@ function setupMotivationAndSincereAboutPages() {
       </div>
 
       <div class="patch-notes-two-cols">
-        <div class="vocab-lined-card" style="padding:22px">
+        <div class="vocab-lined-card" style="padding:20px">
           <span class="tag-orange">SINIFIMIZIN KALBİ</span>
-          <h3 style="font-size:1.35rem;margin:8px 0">👩‍🏫 Teacher Beyza's Creative Studio</h3>
+          <h3 style="font-size:1.3rem;margin:8px 0">👩‍🏫 Teacher Beyza's Creative Studio</h3>
           <p style="line-height:1.75;font-size:0.95rem;color:#334155">
             Burası sadece sıradan bir ders sayfası değil; İngilizceyi korkulacak bir ders olmaktan çıkarıp, boya kalemleriyle, oyunlarla ve gülümsemeyle sevdirmek için kurulan sıcak bir sınıf yuvası. 
             Her öğrencinin çekinmeden parmak kaldırdığı, hata yaparken bile eğlendiği ve öğrenmenin neşesini paylaştığı özel bir dünya. İyi ki varsın Beyza Hoca! 🧡
           </p>
         </div>
 
-        <div class="vocab-lined-card" style="padding:22px;background:#fff7ed">
+        <div class="vocab-lined-card" style="padding:20px;background:#fff7ed">
           <span class="tag-dark">GELİŞTİRİCİ & TASARIM</span>
-          <h3 style="font-size:1.35rem;margin:8px 0">💻 Harun'dan Samimi Bir Hediye</h3>
+          <h3 style="font-size:1.3rem;margin:8px 0">💻 Harun'dan Samimi Bir Hediye</h3>
           <p style="line-height:1.75;font-size:0.95rem;color:#334155">
             Bu web sitesinin her bir satırı, her bir rengi ve detayı; Beyza'nın öğretmenlik heyecanına eşlik etmesi, derslerini çok daha keyifli hale getirmesi ve yorulduğu anlarda yüzünde küçük bir tebessüm bırakması dileğiyle <strong>Harun</strong> tarafından tüm içtenlikle, özenle tasarlanıp kodlanmıştır. 
             Nice güzel derslere ve başarılara... 🧡
@@ -1012,7 +1010,6 @@ function syncAllAuthAndModeBars() {
       teacherProfWrap?.classList.add('hidden');
     }
   } else {
-    // ÖĞRENCİ MODU: Öğretmen Girişi butonu kesinlikle gizlenir!
     teacherAuthBtn?.classList.add('hidden');
     teacherProfWrap?.classList.add('hidden');
 
@@ -1070,6 +1067,8 @@ function openMyProfileModal(targetType) {
   if (!data) return;
 
   playSoftClickSound();
+  document.querySelectorAll('.profile-dropdown-wrap').forEach(w => w.classList.remove('open'));
+
   activeWallGender = data.gender || 'girl';
   const bigAv = document.getElementById('wallAvatarCircle');
   bigAv.textContent = data.avatar || '👧🏻';
@@ -1329,7 +1328,7 @@ function renderPronunciationDrills() {
       <h3>${item.en}</h3>
       <p class="postit-tr">${item.tr}</p>
       <p class="postit-ex" style="margin-bottom:10px">"${item.example}"</p>
-      <div style="display:flex;gap:6px">
+      <div style="display:flex;gap:6px;flex-wrap:wrap">
         <button class="dinle-btn" data-uk="${item.example}">🇬🇧 UK Cümle</button>
         <button class="dinle-btn" data-us="${item.example}">🇺🇸 US Cümle</button>
       </div>
@@ -1355,7 +1354,7 @@ function renderWorksheetPreview() {
   `).join('');
 
   box.innerHTML = `
-    <div style="border-bottom:2px solid #1e293b;padding-bottom:10px;margin-bottom:12px;display:flex;justify-content:space-between;flex-wrap:wrap">
+    <div style="border-bottom:2px solid #1e293b;padding-bottom:10px;margin-bottom:12px;display:flex;justify-content:space-between;flex-wrap:wrap;gap:8px">
       <div>
         <h3>👩‍🏫 ${title}</h3>
         <p style="font-size:0.85rem;font-weight:700;color:#ea580c">Seviye: ${level}</p>
@@ -1364,7 +1363,7 @@ function renderWorksheetPreview() {
         Öğrenci Adı: ___________________ | Sınıf / No: _________
       </div>
     </div>
-    <table style="width:100%;border-collapse:collapse;font-size:0.88rem">
+    <table style="width:100%;min-width:480px;border-collapse:collapse;font-size:0.88rem">
       <thead>
         <tr style="background:#ffedd5">
           <th style="padding:8px;border:1.5px solid #1e293b;text-align:left">Kelime (EN)</th>
@@ -1723,7 +1722,7 @@ function syncGameHostPermissionsUI() {
             <div style="display:flex;gap:6px;flex-wrap:wrap">
               ${!isJoined ? `<button id="dynamicJoinLobbyBtn" class="mini-pill-btn register-pill">🤝 Bu Lobiye Katıl</button>` : `<span class="cls-tag" style="background:#16a34a">✅ Lobidesin</span>`}
               ${(canHost || isHost) ? `
-                <select id="inviteFriendSelect" style="padding:4px 8px;border:2px solid #1e293b;border-radius:8px;font-size:0.78rem">
+                <select id="inviteFriendSelect" style="padding:4px 8px;border:2px solid #1e293b;border-radius:8px;font-size:0.78rem;max-width:100%">
                   <option value="">+ Sınıf Arkadaşını Lobiye Davet Et...</option>
                   ${inviteOptions}
                 </select>
@@ -1860,8 +1859,8 @@ function renderNextGameQuestion() {
     const masked = item.word.split('').map((c, i) => (i % 2 === 1 ? '_' : c)).join(' ');
     qTitle.textContent = `İpucu: "${item.hint}" -> ${masked}`;
     area.innerHTML = `
-      <input type="text" id="wfInput" placeholder="Kelimeyi yaz..." style="padding:10px;border:2px solid #1e293b;border-radius:10px" />
-      <button id="wfBtn" class="mini-pill-btn orange-pill">Kontrol Et</button>
+      <input type="text" id="wfInput" placeholder="Kelimeyi yaz..." style="padding:10px;border:2px solid #1e293b;border-radius:10px;width:100%" />
+      <button id="wfBtn" class="mini-pill-btn orange-pill" style="width:100%">Kontrol Et</button>
     `;
     document.getElementById('wfBtn').onclick = () => {
       const val = document.getElementById('wfInput').value.trim().toUpperCase();
@@ -1969,8 +1968,40 @@ document.addEventListener('DOMContentLoaded', () => {
   renderGrammarCategory('tenses');
   initNotebookAndPaintCanvas();
 
+  // Rulo Menü: Masaüstünde üzerine gelince, Mobilde dokununca temiz aç/kapat (Asla üst üste binmez)
   document.querySelectorAll('.scroll-dropdown').forEach(drop => {
-    drop.addEventListener('mouseenter', () => playPaperFlipSound());
+    const capBtn = drop.querySelector('.scroll-capsule-btn');
+    drop.addEventListener('mouseenter', () => {
+      if (window.innerWidth > 860) playPaperFlipSound();
+    });
+    capBtn?.addEventListener('click', e => {
+      e.stopPropagation();
+      const wasOpen = drop.classList.contains('menu-open');
+      document.querySelectorAll('.scroll-dropdown').forEach(d => d.classList.remove('menu-open'));
+      if (!wasOpen) {
+        drop.classList.add('menu-open');
+        playPaperFlipSound();
+      }
+    });
+  });
+
+  // Profilim açılır menüsü mobil dokunma desteği
+  document.querySelectorAll('.profile-dropdown-wrap .student-avatar-trigger').forEach(trig => {
+    trig.addEventListener('click', e => {
+      e.stopPropagation();
+      const wrap = trig.closest('.profile-dropdown-wrap');
+      wrap?.classList.toggle('open');
+    });
+  });
+
+  // Boş bir yere dokunulduğunda açık rulo veya profil menüsünü kapat
+  document.addEventListener('click', e => {
+    if (!e.target.closest('.scroll-dropdown')) {
+      closeAllScrollMenus();
+    }
+    if (!e.target.closest('.profile-dropdown-wrap')) {
+      document.querySelectorAll('.profile-dropdown-wrap').forEach(w => w.classList.remove('open'));
+    }
   });
 
   let regGender = 'girl';
@@ -2002,7 +2033,8 @@ document.addEventListener('DOMContentLoaded', () => {
   syncAllAuthAndModeBars();
 
   document.querySelectorAll('.unroll-item').forEach(btn => {
-    btn.addEventListener('click', () => {
+    btn.addEventListener('click', e => {
+      e.stopPropagation();
       const targetPage = btn.getAttribute('data-page');
       openNotebookPage(targetPage);
       const gType = btn.getAttribute('data-gametype');
@@ -2026,7 +2058,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Günün Kelimesi Yenile
   let dIdx = 0;
   document.getElementById('refreshDailyWordBtn')?.addEventListener('click', () => {
     playPaperFlipSound();
@@ -2037,7 +2068,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('dailyWordEx').textContent = `"${w.example}"`;
   });
 
-  // Crayon Timer (Kendine Özel Kronometre, Saat Tik-Tak ve Çekiçli Okul Zili Sesli)
   let tTotalSec = 180;
   let tSec = 180;
   let tInt = null;
@@ -2091,7 +2121,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updTimer();
   });
 
-  // Şanslı Kalem (Kendine Özel Çark Çevirme "Tık-Tık-Tık... Ding!" Sesli)
   document.getElementById('spinLuckyPencilBtn')?.addEventListener('click', () => {
     playWheelSpinSound();
     const vis = localStorage.getItem(STORAGE_KEYS.VISIBLE_CLASS);
@@ -2114,7 +2143,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLuckyPencilClasses();
   });
 
-  // Sözlük & Gramer
   document.getElementById('dictSearchBtn')?.addEventListener('click', () => {
     searchLiveDictionary(document.getElementById('dictSearchInput').value);
   });
@@ -2130,7 +2158,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Öğrenci Giriş / Kayıt
   function openAuth(mode) {
     playSoftClickSound();
     const isL = mode === 'login';
@@ -2204,7 +2231,6 @@ document.addEventListener('DOMContentLoaded', () => {
     syncAllAuthAndModeBars();
   });
 
-  // Profilim Butonları
   document.getElementById('openMyProfileBtn')?.addEventListener('click', () => openMyProfileModal('student'));
   document.getElementById('openTeacherProfileBtn')?.addEventListener('click', () => openMyProfileModal('teacher'));
 
@@ -2394,7 +2420,6 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('teacherDeleteStudentModal')?.classList.add('hidden');
   });
 
-  // Şikayet Gönder
   document.getElementById('sendComplaintBtn')?.addEventListener('click', () => {
     const msg = document.getElementById('complaintMessageInput').value.trim();
     if (!msg) return;
@@ -2420,7 +2445,6 @@ document.addEventListener('DOMContentLoaded', () => {
     renderTeacherComplaints();
   });
 
-  // Oyunlar & Lobi Kurulumu
   document.querySelectorAll('#gameTypeSelectorRow .game-select-pill').forEach(btn => {
     btn.addEventListener('click', () => {
       if (!canCurrentUserHostGame()) return;
@@ -2480,7 +2504,6 @@ document.addEventListener('DOMContentLoaded', () => {
     startOrJoinLiveMatch(currentMatchState);
   });
 
-  // Dinleme Laboratuvarı & Worksheet
   document.getElementById('speakUkBtn')?.addEventListener('click', () => speakText(document.getElementById('listeningLabInput').value, 'en-GB', 1));
   document.getElementById('speakUsBtn')?.addEventListener('click', () => speakText(document.getElementById('listeningLabInput').value, 'en-US', 1));
   document.getElementById('speakSlowBtn')?.addEventListener('click', () => speakText(document.getElementById('listeningLabInput').value, 'en-US', 0.65));
