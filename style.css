@@ -17,6 +17,7 @@
 html {
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -30,6 +31,7 @@ body {
   min-height: 100vh;
   padding-bottom: 50px;
   overflow-x: hidden;
+  width: 100%;
 }
 
 h1, h2, h3, h4 {
@@ -77,6 +79,7 @@ h1, h2, h3, h4 {
   color: var(--ink);
   transition: transform 0.12s ease;
   white-space: nowrap;
+  max-width: 100%;
 }
 
 .mini-pill-btn:active {
@@ -213,7 +216,6 @@ h1, h2, h3, h4 {
   z-index: 10;
 }
 
-/* Açılan rulo her zaman en üst katmanda durur, asla arkaya düşmez */
 .scroll-dropdown:hover,
 .scroll-dropdown.menu-open {
   z-index: 350;
@@ -328,7 +330,7 @@ h1, h2, h3, h4 {
 }
 
 /* =========================================================
-   ANA DEFTER GÖVDESİ
+   ANA DEFTER GÖVDESİ (TAŞMA KORUMALI)
 ========================================================== */
 .notebook-sheet {
   max-width: 1120px;
@@ -346,6 +348,17 @@ h1, h2, h3, h4 {
   position: relative;
   min-height: 620px;
   z-index: 1;
+  overflow: hidden;
+}
+
+.notebook-page,
+.lined-box,
+.lined-widget-card,
+.home-three-columns > div,
+.vocab-lined-card,
+.workshop-lined-card {
+  min-width: 0;
+  max-width: 100%;
 }
 
 .binder-holes {
@@ -439,6 +452,7 @@ h1, h2, h3, h4 {
   gap: 10px;
   font-weight: 800;
   font-size: 0.86rem;
+  max-width: 100%;
 }
 
 .yellow-status-tag {
@@ -525,6 +539,7 @@ h1, h2, h3, h4 {
   grid-template-columns: 1fr 1fr 1.15fr;
   gap: 20px;
   align-items: start;
+  width: 100%;
 }
 
 .yellow-postit-card {
@@ -871,6 +886,7 @@ h1, h2, h3, h4 {
   font-family: 'Fredoka', sans-serif;
   cursor: pointer;
   box-shadow: 0 3px 0 var(--ink);
+  max-width: 100%;
 }
 
 .live-session-strip {
@@ -992,11 +1008,16 @@ h1, h2, h3, h4 {
 
 #worksheetPreviewBox {
   overflow-x: auto;
+  max-width: 100%;
 }
 
-.form-stack { display: flex; flex-direction: column; gap: 10px; }
+.form-stack { display: flex; flex-direction: column; gap: 10px; min-width: 0; }
+.form-stack > div[style*="display:flex"] {
+  flex-wrap: wrap !important;
+}
 .form-stack input, .form-stack select, .form-stack textarea {
   width: 100%;
+  max-width: 100%;
   padding: 10px 12px;
   border: 2px solid var(--ink);
   border-radius: 10px;
@@ -1150,9 +1171,6 @@ h1, h2, h3, h4 {
 
 /* ==========================================================================
    CİHAZLARA GÖRE ÖZEL ÖLÇEKLENDİRME (RESPONSIVE ENGINE)
-   1) Akıllı Tahta & TV (1600px+)
-   2) Tablet & Küçük Laptop (1024px altı)
-   3) Mobil & Dikey Ekranlar (860px ve 640px altı)
    ========================================================================== */
 
 /* 1. AKILLI TAHTA VE BÜYÜK TV EKRANLARI (1600px ve üzeri) */
@@ -1193,8 +1211,8 @@ h1, h2, h3, h4 {
   }
 }
 
-/* 2. TABLET GÖRÜNÜMÜ (641px - 1024px arası) */
-@media (max-width: 1024px) {
+/* 2. TABLET YATAY GÖRÜNÜMÜ (769px - 1024px arası) */
+@media (min-width: 769px) and (max-width: 1024px) {
   .notebook-sheet {
     margin: 0 14px;
     padding: 20px 20px 28px 44px;
@@ -1227,7 +1245,7 @@ h1, h2, h3, h4 {
   }
 }
 
-/* 3. MOBİL & TABLET DİKEY RULO MENÜ DÜZENİ (860px altı: Rulolar asla birbirinin arkasına girmez!) */
+/* 3. MOBİL & TABLET DİKEY RULO MENÜ DÜZENİ (860px altı) */
 @media (max-width: 860px) {
   .scroll-nav-bar {
     flex-direction: column;
@@ -1254,7 +1272,6 @@ h1, h2, h3, h4 {
     padding: 6px 10px;
   }
 
-  /* Mobilde rulo açıldığında altındaki ruloyu aşağı iter, hiçbir zaman arkasına düşmez */
   .unroll-paper-menu {
     position: relative;
     top: 0;
@@ -1278,8 +1295,8 @@ h1, h2, h3, h4 {
   }
 }
 
-/* 4. TELEFON GÖRÜNÜMÜ (640px ve altı) */
-@media (max-width: 640px) {
+/* 4. TELEFON VE DİKEY KÜÇÜK EKRANLAR (768px ve altı - HİÇBİR KUTU DIŞARI TAŞMAZ!) */
+@media (max-width: 768px) {
   body {
     padding-bottom: 32px;
   }
@@ -1299,12 +1316,16 @@ h1, h2, h3, h4 {
 
   .mini-pill-btn {
     font-size: 0.8rem;
-    padding: 6px 12px;
+    padding: 7px 12px;
+    white-space: normal;
+    line-height: 1.25;
+    text-align: center;
   }
 
-  /* Defter gövdesini mobilde tam genişlikte ve ferah kullan */
+  /* Defter gövdesi tam ekran genişliğine oturur */
   .notebook-sheet {
-    margin: 0 8px;
+    width: calc(100% - 16px);
+    margin: 0 auto;
     padding: 16px 12px 24px 26px;
     border-width: 3.5px;
     outline-width: 2.5px;
@@ -1349,23 +1370,30 @@ h1, h2, h3, h4 {
     font-size: 0.86rem;
   }
 
+  /* Ana Sayfa 3 Sütunu Mobilde Kesin Olarak Tek Sütuna İner (Crayon Timer Taşması Çözümü) */
   .home-three-columns {
-    grid-template-columns: 1fr;
-    gap: 16px;
+    grid-template-columns: 1fr !important;
+    gap: 18px;
   }
 
+  .home-col-left,
   .home-col-center,
   .home-col-right {
-    padding-top: 0;
+    grid-column: 1 / -1 !important;
+    width: 100% !important;
+    max-width: 100% !important;
+    padding-top: 0 !important;
   }
 
   .yellow-postit-card {
     transform: none;
     padding: 14px;
+    width: 100%;
   }
 
-  .vocab-three-grid {
-    grid-template-columns: 1fr;
+  .vocab-three-grid,
+  .patch-notes-two-cols {
+    grid-template-columns: 1fr !important;
     gap: 12px;
   }
 
@@ -1381,6 +1409,38 @@ h1, h2, h3, h4 {
 
   .dict-orange-search-btn br {
     display: none;
+  }
+
+  /* Çalışma Kağıdı (Worksheet) ve Dinleme Laboratuvarı Buton Taşması Çözümü */
+  #page-worksheet [style*="grid-template-columns"],
+  #studentRegisterForm [style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+
+  #page-worksheet .form-stack > div[style*="display:flex"],
+  #page-listening .form-stack > div[style*="display:flex"] {
+    flex-direction: column !important;
+    width: 100% !important;
+  }
+
+  #page-worksheet .form-stack .mini-pill-btn,
+  #page-listening .form-stack .mini-pill-btn {
+    width: 100% !important;
+    display: block !important;
+  }
+
+  #worksheetPreviewBox table {
+    min-width: 0 !important;
+    width: 100% !important;
+    table-layout: fixed !important;
+    word-break: break-word !important;
+  }
+
+  #worksheetPreviewBox th,
+  #worksheetPreviewBox td {
+    font-size: 0.76rem !important;
+    padding: 6px !important;
+    word-break: break-word !important;
   }
 
   /* Oyunlar sayfası mobil optimizasyonu */
@@ -1416,12 +1476,6 @@ h1, h2, h3, h4 {
   .arena-options-wrap {
     grid-template-columns: 1fr;
     gap: 10px;
-  }
-
-  /* Çalışma Kağıdı (Worksheet) ve Kayıt Formu yan yana kutuları mobilde alt alta dizilsin */
-  #page-worksheet [style*="grid-template-columns"],
-  #studentRegisterForm [style*="grid-template-columns"] {
-    grid-template-columns: 1fr !important;
   }
 
   /* Paint Tuvali ve Not Defteri */
