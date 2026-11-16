@@ -280,13 +280,20 @@ function updateSoundToggleButtonUI() {
 }
 
 /* ==========================================================================
-   2. KALPLİ KOLYE KONUMU VE CRAYON TIMER RENKLİ ÇUBUK STİLLERİ
+   2. KALPLİ KOLYE KONUMU, INPUT ODAKLANMA VE CRAYON TIMER STİLLERİ
    ========================================================================== */
 function injectRefinedLocketAndTimerStyles() {
   if (document.getElementById('v11RefinedDynamicStyles')) return;
   const style = document.createElement('style');
   style.id = 'v11RefinedDynamicStyles';
   style.textContent = `
+    input, textarea, select {
+      user-select: text !important;
+      -webkit-user-select: text !important;
+      pointer-events: auto !important;
+      cursor: text;
+    }
+
     .locket-hanging-stage {
       position: relative !important;
       width: 100% !important;
@@ -699,7 +706,7 @@ function renderAvatarPickerGrid(containerId, gender, selectedAvatar, onSelectCal
   });
 }
 
-/* 6. DEFTER DELİKLERİ VE RULO MENÜ SAYFA GEÇİŞİ (MOBİLDE SEÇİNCE OTOMATİK KAPANIR) */
+/* 6. DEFTER DELİKLERİ VE RULO MENÜ SAYFA GEÇİŞİ (INPUT ODAĞINI BOZMAZ) */
 function renderBinderHoles() {
   const container = document.getElementById('binderHoles');
   if (!container) return;
@@ -713,8 +720,15 @@ function renderBinderHoles() {
 
 function closeAllScrollMenus() {
   document.querySelectorAll('.scroll-dropdown').forEach(d => d.classList.remove('menu-open'));
-  if (document.activeElement && document.activeElement.blur) {
-    document.activeElement.blur();
+  // Sadece odak rulo menü içerisindeyse blur yap; yazı kutularının (input/textarea) imlecini asla kapatma!
+  const activeEl = document.activeElement;
+  if (
+    activeEl &&
+    activeEl.closest &&
+    activeEl.closest('.scroll-dropdown') &&
+    typeof activeEl.blur === 'function'
+  ) {
+    activeEl.blur();
   }
 }
 
@@ -1393,14 +1407,64 @@ function renderWorksheetPreview() {
   `;
 }
 
+function parseDictionaryApiEntry(dJson, enWord, trWord) {
+  const subMeanings = [];
+  const synSet = new Set();
+  const antSet = new Set();
+  let ex = '';
+
+  const mapPos = {
+    noun: 'Noun (İsim)',
+    verb: 'Verb (Fiil)',
+    adjective: 'Adjective (Sıfat)',
+    adverb: 'Adverb (Zarf)',
+    pronoun: 'Pronoun (Zamir)',
+    preposition: 'Preposition (Edat)',
+    conjunction: 'Conjunction (Bağlaç)',
+    interjection: 'Interjection (Ünlem)'
+  };
+
+  if (Array.isArray(dJson)) {
+    dJson.forEach(entry => {
+      (entry.meanings || []).forEach(m => {
+        const t = mapPos[(m.partOfSpeech || '').toLowerCase()] || m.partOfSpeech || 'Kelime Türü';
+        const firstDef = m.definitions?.[0]?.definition || '';
+        if (firstDef && subMeanings.length < 6) {
+          subMeanings.push({ type: t, meaning: firstDef });
+        }
+        (m.synonyms || []).forEach(s => synSet.add(s));
+        (m.antonyms || []).forEach(a => antSet.add(a));
+        (m.definitions || []).forEach(d => {
+          if (!ex && d.example) ex = d.example;
+          (d.synonyms || []).forEach(s => synSet.add(s));
+          (d.antonyms || []).forEach(a => antSet.add(a));
+        });
+      });
+    });
+  }
+
+  if (subMeanings.length === 0) {
+    subMeanings.push({ type: 'Noun / Verb (Kelime Karşılığı)', meaning: `${enWord} ↔ ${trWord}` });
+  }
+
+  return {
+    en: enWord,
+    tr: trWord,
+    subMeanings,
+    synonyms: synSet.size > 0 ? Array.from(synSet).slice(0, 5).join(', ') : '-',
+    antonyms: antSet.size > 0 ? Array.from(antSet).slice(0, 5).join(', ') : '-',
+    example: ex || `Learning "${enWord}" helps you express yourself clearly.`
+  };
+}
+
 async function searchLiveDictionary(queryRaw) {
-  const q = queryRaw.trim();
+  const q = (queryRaw || '').trim();
   const box = document.getElementById('dictLiveResultBox');
   if (!q || !box) return;
 
   playSoftClickSound();
   box.classList.remove('hidden');
-  box.innerHTML = `<p>🔎 <strong>"${q}"</strong> için Türkçe ↔ İngilizce çeviri ve alt anlamlar getiriliyor...</p>`;
+  box.innerHTML = `<p>🔎 <strong>"${q}"</strong> için Türkçe ↔ İngilizce çeviri, kelime türleri (Noun/Verb), eş-zıt anlamlar ve örnek cümle getiriliyor...</p>`;
 
   const local = RICH_DICTIONARY_DB.find(
     d => d.en.toLowerCase() === q.toLowerCase() || d.tr.toLowerCase().includes(q.toLowerCase())
@@ -1411,41 +1475,43 @@ async function searchLiveDictionary(queryRaw) {
   }
 
   try {
-    const isTr = /[çğıöşü]/i.test(q) || ['kitap', 'kalem', 'başarmak', 'okul', 'ışık', 'merak', 'güven'].includes(q.toLowerCase());
-    const pair = isTr ? 'tr|en' : 'en|tr';
-    const res = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(q)}&langpair=${pair}`);
-    const data = await res.json();
-    const translated = data?.responseData?.translatedText || q;
-    const enWord = isTr ? translated.toLowerCase().split(',')[0].trim() : q.toLowerCase();
-    const trWord = isTr ? q : translated;
+    const hasTrChars = /[çğıöşüÇĞİÖŞÜ]/.test(q);
+    let dJson = null;
+    let isEnglishInput = false;
 
-    let subMeanings = [];
-    let syns = '-';
-    let ants = '-';
-    let ex = `Learning "${enWord}" helps you express yourself clearly.`;
-
-    try {
-      const dRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(enWord)}`);
-      if (dRes.ok) {
-        const dJson = await dRes.json();
-        const entry = dJson[0];
-        const mapPos = { noun: 'Noun (İsim)', verb: 'Verb (Fiil)', adjective: 'Adjective (Sıfat)', adverb: 'Adverb (Zarf)' };
-        (entry.meanings || []).forEach(m => {
-          const t = mapPos[m.partOfSpeech] || m.partOfSpeech;
-          const def = m.definitions?.[0]?.definition || '';
-          if (def) subMeanings.push({ type: t, meaning: def });
-          if (m.definitions?.[0]?.example) ex = m.definitions[0].example;
-          if (m.synonyms?.length && syns === '-') syns = m.synonyms.slice(0, 4).join(', ');
-          if (m.antonyms?.length && ants === '-') ants = m.antonyms.slice(0, 4).join(', ');
-        });
-      }
-    } catch (_) {}
-
-    if (subMeanings.length === 0) {
-      subMeanings.push({ type: 'Kelime Karşılığı', meaning: `${enWord} ↔ ${trWord}` });
+    // Türkçe karakter yoksa önce İngilizce sözlükte var mı kontrol et
+    if (!hasTrChars) {
+      try {
+        const checkEnRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(q.toLowerCase())}`);
+        if (checkEnRes.ok) {
+          dJson = await checkEnRes.json();
+          isEnglishInput = true;
+        }
+      } catch (_) {}
     }
 
-    renderLiveWordBox({ en: enWord, tr: trWord, subMeanings, synonyms: syns, antonyms: ants, example: ex });
+    const pair = isEnglishInput ? 'en|tr' : 'tr|en';
+    const transRes = await fetch(`https://api.mymemory.translated.net/get?q=${encodeURIComponent(q)}&langpair=${pair}`);
+    const transData = await transRes.json();
+    const translated = transData?.responseData?.translatedText || q;
+
+    const enWord = isEnglishInput
+      ? q.toLowerCase()
+      : translated.toLowerCase().replace(/[^a-z\s-]/gi, '').split(',')[0].trim() || q.toLowerCase();
+    const trWord = isEnglishInput ? translated : q;
+
+    // Türkçe girildiyse çevrilen İngilizce kelimenin Noun/Verb, eş/zıt anlam ve örneklerini çek
+    if (!dJson && enWord) {
+      try {
+        const dRes = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${encodeURIComponent(enWord)}`);
+        if (dRes.ok) {
+          dJson = await dRes.json();
+        }
+      } catch (_) {}
+    }
+
+    const parsedItem = parseDictionaryApiEntry(dJson, enWord, trWord);
+    renderLiveWordBox(parsedItem);
   } catch {
     box.innerHTML = `<p class="err-text">Çeviri bağlantısında sorun oluştu.</p>`;
   }
@@ -1457,20 +1523,20 @@ function renderLiveWordBox(item) {
   const subs = (item.subMeanings || []).map(s => `
     <div style="border:2px solid #1e293b;border-radius:12px;padding:10px;background:#fff">
       <span class="tag-orange">${s.type}</span>
-      <p style="font-size:0.86rem;font-weight:700">${s.meaning}</p>
+      <p style="font-size:0.86rem;font-weight:700;margin-top:4px">${s.meaning}</p>
     </div>
   `).join('');
 
   box.innerHTML = `
     <div class="flex-between-wrap" style="margin-bottom:10px">
       <h3>🌐 ${item.en.toUpperCase()} ↔ TR: ${item.tr}</h3>
-      <button class="dinle-btn" id="liveSpeakBtn">🔊 Telaffuzu Dinle</button>
+      <button type="button" class="dinle-btn" id="liveSpeakBtn">🔊 Telaffuzu Dinle</button>
     </div>
     <div class="vocab-three-grid" style="margin-bottom:10px">${subs}</div>
-    <p style="font-size:0.85rem"><strong>Eş Anlamlılar:</strong> ${item.synonyms || '-'} | <strong>Zıt Anlamlılar:</strong> ${item.antonyms || '-'}</p>
-    <p class="postit-ex" style="margin-top:4px"><strong>Örnek:</strong> "${item.example}"</p>
+    <p style="font-size:0.85rem"><strong>Eş Anlamlılar (Synonyms):</strong> ${item.synonyms || '-'} | <strong>Zıt Anlamlılar (Antonyms):</strong> ${item.antonyms || '-'}</p>
+    <p class="postit-ex" style="margin-top:4px"><strong>Örnek Cümle:</strong> "${item.example}"</p>
   `;
-  document.getElementById('liveSpeakBtn')?.addEventListener('click', () => speakText(item.en));
+  document.getElementById('liveSpeakBtn')?.addEventListener('click', () => speakText(item.en, 'en-US', 0.95));
 }
 
 const GRAMMAR_LIBRARY_DB = {
@@ -2011,7 +2077,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   });
 
-  // Boş bir yere dokunulduğunda açık rulo veya profil menüsünü kapat
+  // Boş bir yere dokunulduğunda açık rulo veya profil menüsünü kapat (Input odaklarını bozmaz)
   document.addEventListener('click', e => {
     if (!e.target.closest('.scroll-dropdown')) {
       closeAllScrollMenus();
@@ -2160,12 +2226,27 @@ document.addEventListener('DOMContentLoaded', () => {
     renderLuckyPencilClasses();
   });
 
-  document.getElementById('dictSearchBtn')?.addEventListener('click', () => {
-    searchLiveDictionary(document.getElementById('dictSearchInput').value);
+  // HIZLI SÖZLÜK ARAMA KUTUSU VE ARA BUTONU (Tek tıkla odaklanır, Enter veya Ara ile çevirir)
+  const dictInput = document.getElementById('dictSearchInput');
+  const dictBtn = document.getElementById('dictSearchBtn');
+
+  dictInput?.addEventListener('click', e => {
+    e.stopPropagation();
+    dictInput.focus();
   });
-  document.getElementById('dictSearchInput')?.addEventListener('keydown', e => {
-    if (e.key === 'Enter') searchLiveDictionary(e.target.value);
+
+  dictInput?.addEventListener('keydown', e => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      searchLiveDictionary(dictInput.value);
+    }
   });
+
+  dictBtn?.addEventListener('click', e => {
+    e.preventDefault();
+    if (dictInput) searchLiveDictionary(dictInput.value);
+  });
+
   document.querySelectorAll('#grammarCategoryTabs .gram-tab-btn').forEach(btn => {
     btn.addEventListener('click', () => {
       playPaperFlipSound();
